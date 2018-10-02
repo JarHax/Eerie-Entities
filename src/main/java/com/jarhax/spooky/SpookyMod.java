@@ -1,12 +1,20 @@
 package com.jarhax.spooky;
 
+import com.jarhax.spooky.client.*;
+import com.jarhax.spooky.entities.EntityWisp;
 import net.darkhax.bookshelf.lib.LoggingHelper;
 import net.darkhax.bookshelf.network.NetworkHandler;
 import net.darkhax.bookshelf.registry.RegistryHelper;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.registry.EntityRegistry;
+import net.minecraftforge.fml.relauncher.*;
 
 @Mod(modid = SpookyMod.MODID, name = SpookyMod.NAME, version = "@VERSION@", dependencies = "required-after:bookshelf@[2.3.562,);", certificateFingerprint = "@FINGERPRINT@")
 public class SpookyMod {
@@ -22,10 +30,19 @@ public class SpookyMod {
 	
 	@EventHandler
 	public void onPreInit(FMLPreInitializationEvent event) {
-		
+	    //TODO make an instance for this??
+        EntityRegistry.registerModEntity(new ResourceLocation(MODID, "wisp"), EntityWisp.class, "wisp", 0, this, 32, 1, true);
 	}
-	
-	@EventHandler
+    
+    @EventHandler
+    @SideOnly(Side.CLIENT)
+    public void onClientPreInit(FMLPreInitializationEvent event) {
+        ShaderHandler.registerShaders();
+        MinecraftForge.EVENT_BUS.register(new ClientEvents());
+        RenderingRegistry.registerEntityRenderingHandler(EntityWisp.class, new RenderWisp.Factory());
+	}
+    
+    @EventHandler
 	public void onInit(FMLInitializationEvent event) {
 		
 	}
