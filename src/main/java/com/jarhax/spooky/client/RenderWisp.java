@@ -2,12 +2,12 @@ package com.jarhax.spooky.client;
 
 
 import com.jarhax.spooky.entities.EntityWisp;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
+import org.lwjgl.opengl.GL11;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
@@ -26,71 +26,37 @@ public class RenderWisp extends Render<EntityWisp> {
     
     @Override
     public void doRender(EntityWisp entity, double x, double y, double z, float entityYaw, float partialTicks) {
-        super.doRender(entity, x, y, z, entityYaw, partialTicks);
+        
         GlStateManager.pushMatrix();
-        GlStateManager.translate(x, y, z);
-        //        GlStateManager.translate(0, entity.width / 2, 0);
-        //        GlStateManager.disableLighting();
-        //        //        GlStateManager.disableTexture2D();
-        //        bindEntityTexture(entity);
-        //        GlStateManager.color(0, 0.4f + (float) (((Math.sin(entity.ticksExisted / 15f) + 1f) / 2f) * 0.4f), 1);
-        //        double size = 0.8 + ((Math.sin((entity.ticksExisted / 15f)) + 1) / 2) * 0.2;
-        //        double oSize = 0.8 + ((Math.cos(entity.ticksExisted / 15f) + 1) / 2) * 0.2;
-        //
-        //        double laggedSize = 0.8 + ((Math.sin(((entity.ticksExisted + 40) / 15f)) + 1) / 2) * 0.2;
-        //        double laggedOSize = 0.8 + ((Math.cos((entity.ticksExisted + 40) / 15f) + 1) / 2) * 0.2;
-        //
-        //        GlStateManager.scale(laggedSize, laggedOSize, laggedSize);
-        //        GlStateManager.enableBlend();
-        //        GlStateManager.blendFunc(770, 769);
-        //        GlStateManager.depthMask(false);
-        //        Sphere sphere = new Sphere();
-        //        sphere.setTextureFlag(true);
-        //        sphere.setOrientation(GLU.GLU_INSIDE);
-        //        sphere.draw(entity.width / 2, 36, 36);
-        //        GlStateManager.scale(oSize, size, oSize);
-        //        sphere.setOrientation(GLU.GLU_OUTSIDE);
-        //        if(entity.hurtTime>0) {
-        //            if(entity.hurtTime % 2 == 0) {
-        //                GlStateManager.color(1, 0.4f + (float) (((Math.sin(entity.ticksExisted / 15f) + 1f) / 2f) * 0.4f), 1);
-        //            }
-        //        }
-        //        sphere.draw(entity.width / 3, 36, 36);
-        //        GlStateManager.depthMask(true);
-        //        GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        //        GlStateManager.scale(1, 1, 1);
-        //        GlStateManager.enableLighting();
-        //        GlStateManager.translate(0, -entity.width / 2, 0);
-        Minecraft mc = Minecraft.getMinecraft();
-        mc.getTextureManager().bindTexture(getEntityTexture(entity));
+        GlStateManager.translate((float) x, (float) y, (float) z);
+        GlStateManager.depthMask(false);
+        GlStateManager.enableBlend();
+        GL11.glBlendFunc(770, 769);
         
-        
+        this.bindEntityTexture(entity);
+        float width = entity.width / 2;
+        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+        GlStateManager.translate(0.0F, width, 0.0F);
+        GlStateManager.rotate(180.0F - this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
+        GlStateManager.rotate((float) (this.renderManager.options.thirdPersonView == 2 ? -1 : 1) * -this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
+        double scale = 0.5 + (Math.sin(entity.ticksExisted / 15f) + 1) / 2 * 0.5;
+        GlStateManager.scale(scale, scale, scale);
         HashMap<String, Object> data = new HashMap<>();
         ShaderHandler.useShader(ShaderHandler.WISP, data);
-        GlStateManager.translate(0, entity.width / 2, 0);
-        GlStateManager.disableLighting();
-        GlStateManager.enableBlend();
-        GlStateManager.blendFunc(770, 769);
-        GlStateManager.depthMask(false);
-        
-        //TODO this is mostly(?) correct, the Y axis fails
-        GlStateManager.rotate(-mc.player.rotationYaw, 0, 1, 0);
-        GlStateManager.rotate(mc.player.rotationPitch, 1, 0, 1);
-    
-        BufferBuilder buff = Tessellator.getInstance().getBuffer();
-        buff.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-        float min = -0.5f;
-        float max = -min;
-        buff.pos(min, max, 0).tex(0, 1).color(1f, 1f, 1f, 1f).endVertex();
-        buff.pos(max, max, 0).tex(1, 1).color(1f, 1f, 1f, 1f).endVertex();
-        buff.pos(max, min, 0).tex(1, 0).color(1f, 1f, 1f, 1f).endVertex();
-        buff.pos(min, min, 0).tex(0, 0).color(1f, 1f, 1f, 1f).endVertex();
-        Tessellator.getInstance().draw();
+        Tessellator tessellator = Tessellator.getInstance();
+        BufferBuilder bufferbuilder = tessellator.getBuffer();
+        bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR_NORMAL);
+        bufferbuilder.pos(-width, -width, 0).tex(0, 1).color(0f, 1f, 1f, 1f).normal(0.0F, 1.0F, 0.0F).endVertex();
+        bufferbuilder.pos(width, -width, 0).tex(1, 1).color(0f, 1f, 1f, 1f).normal(0.0F, 1.0F, 0.0F).endVertex();
+        bufferbuilder.pos(width, width, 0).tex(1, 0).color(0f, 1f, 1f, 1f).normal(0.0F, 1.0F, 0.0F).endVertex();
+        bufferbuilder.pos(-width, width, 0).tex(0, 0).color(0f, 1f, 1f, 1f).normal(0.0F, 1.0F, 0.0F).endVertex();
+        tessellator.draw();
         ShaderHandler.releaseShader();
-        GlStateManager.depthMask(true);
         GlStateManager.disableBlend();
-        GlStateManager.translate(-x, -y, -z);
+        GlStateManager.depthMask(true);
+        GlStateManager.disableRescaleNormal();
         GlStateManager.popMatrix();
+        super.doRender(entity, x, y, z, entityYaw, partialTicks);
     }
     
     public static class Factory implements IRenderFactory<EntityWisp> {
