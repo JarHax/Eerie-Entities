@@ -58,12 +58,4 @@ public class RenderWisp extends Render<EntityWisp> {
         GlStateManager.popMatrix();
         super.doRender(entity, x, y, z, entityYaw, partialTicks);
     }
-    
-    public static class Factory implements IRenderFactory<EntityWisp> {
-        
-        @Override
-        public Render<? super EntityWisp> createRenderFor(RenderManager manager) {
-            return new RenderWisp(manager);
-        }
-    }
 }

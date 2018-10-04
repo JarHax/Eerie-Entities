@@ -39,7 +39,7 @@ public class SpookyMod {
     public void onClientPreInit(FMLPreInitializationEvent event) {
         ShaderHandler.registerShaders();
         MinecraftForge.EVENT_BUS.register(new ClientEvents());
-        RenderingRegistry.registerEntityRenderingHandler(EntityWisp.class, new RenderWisp.Factory());
+        RenderingRegistry.registerEntityRenderingHandler(EntityWisp.class, RenderWisp::new);
 	}
     
     @EventHandler
