@@ -1,6 +1,8 @@
 package com.jarhax.spooky;
 
 import com.jarhax.spooky.client.*;
+import com.jarhax.spooky.client.renderer.entity.RenderPumpkinSlime;
+import com.jarhax.spooky.entities.EntityPumpkinSlime;
 import com.jarhax.spooky.entities.EntityWisp;
 import net.darkhax.bookshelf.lib.LoggingHelper;
 import net.darkhax.bookshelf.network.NetworkHandler;
@@ -32,14 +34,17 @@ public class SpookyMod {
 	public void onPreInit(FMLPreInitializationEvent event) {
 		
 		REGISTRY.registerMob(EntityWisp.class, "wisp", 0, 0x00ffff, 0x33ccff);
+		REGISTRY.registerMob(EntityPumpkinSlime.class, "pumpkin_slime", 1, 0xB67317, 0x804809);
 	}
     
     @EventHandler
     @SideOnly(Side.CLIENT)
     public void onClientPreInit(FMLPreInitializationEvent event) {
+    	
         ShaderHandler.registerShaders();
         MinecraftForge.EVENT_BUS.register(new ClientEvents());
         RenderingRegistry.registerEntityRenderingHandler(EntityWisp.class, RenderWisp::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntityPumpkinSlime.class, RenderPumpkinSlime::new);
 	}
     
     @EventHandler
