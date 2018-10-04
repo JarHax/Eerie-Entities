@@ -8,6 +8,7 @@ import com.google.common.base.Optional;
 
 import net.darkhax.bookshelf.lib.Constants;
 import net.darkhax.bookshelf.util.MathsUtils;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.IEntityLivingData;
@@ -29,6 +30,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos.MutableBlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
@@ -278,6 +280,25 @@ public class EntityPumpkinSlime extends EntitySlime implements IEntityOwnable {
     public boolean canDamagePlayer () {
         
         return this.getOwner() == null;
+    }
+    
+    @Override
+    public boolean spawnCustomParticles () {
+        
+        final int size = 2;
+        
+        for (int indx = 0; indx < size * 8; indx++) {
+            
+            float randomDegree = this.rand.nextFloat() * ((float) Math.PI * 2F);
+            float randomOffset = this.rand.nextFloat() * 0.5F + 0.5F;
+            float offsetX = MathHelper.sin(randomDegree) * (float) size * 0.5F * randomOffset;
+            float offsetZ = MathHelper.cos(randomDegree) * (float) size * 0.5F * randomOffset;
+            double particleX = this.posX + (double) offsetX;
+            double particleY = this.posZ + (double) offsetZ;
+            this.world.spawnParticle(EnumParticleTypes.BLOCK_DUST, particleX, this.getEntityBoundingBox().minY, particleY, 0.0D, 0.0D, 0.0D, Block.getStateId(Blocks.PUMPKIN.getDefaultState()));
+        }
+        
+        return true;
     }
     
     @Override
