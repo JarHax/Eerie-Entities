@@ -1,31 +1,45 @@
 package com.jarhax.spooky.entities;
 
+import java.util.UUID;
+
+import javax.annotation.Nullable;
+
+import com.google.common.base.Optional;
+
 import net.darkhax.bookshelf.lib.Constants;
 import net.darkhax.bookshelf.util.MathsUtils;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.IEntityLivingData;
+import net.minecraft.entity.IEntityOwnable;
 import net.minecraft.entity.MoverType;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.monster.EntitySlime;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
-public class EntityPumpkinSlime extends EntitySlime {
+public class EntityPumpkinSlime extends EntitySlime implements IEntityOwnable {
     
     private static final DataParameter<Boolean> IS_BLOCK = EntityDataManager.<Boolean> createKey(EntityPumpkinSlime.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Integer> TYPE = EntityDataManager.<Integer> createKey(EntityPumpkinSlime.class, DataSerializers.VARINT);
+    private static final DataParameter<Optional<UUID>> OWNER = EntityDataManager.<Optional<UUID>> createKey(EntityPumpkinSlime.class, DataSerializers.OPTIONAL_UNIQUE_ID);
     
     private float rotation = 0f;
+    private boolean sitting = false;
     
     public EntityPumpkinSlime(World worldIn) {
         
@@ -58,6 +72,7 @@ public class EntityPumpkinSlime extends EntitySlime {
         super.entityInit();
         this.dataManager.register(IS_BLOCK, false);
         this.dataManager.register(TYPE, Constants.RANDOM.nextInt(6));
+        this.dataManager.register(OWNER, Optional.absent());
     }
     
     @Override
@@ -67,7 +82,7 @@ public class EntityPumpkinSlime extends EntitySlime {
         
         if (this.isServerWorld()) {
             
-            if (this.getAttackTarget() == null) {
+            if (this.getAttackTarget() == null && this.getOwnerId() == null || this.isSitting()) {
                 this.transformToBlock();
             }
             
@@ -165,6 +180,12 @@ public class EntityPumpkinSlime extends EntitySlime {
         compound.setBoolean("IsBlockForm", this.isBlock());
         compound.setInteger("Type", this.getType());
         compound.setFloat("LookRotation", this.rotation);
+        
+        if (this.getOwnerId() != null) {
+            
+            compound.setUniqueId("Owner", this.getOwnerId());
+            compound.setBoolean("Sitting", this.isSitting());
+        }
     }
     
     @Override
@@ -174,6 +195,12 @@ public class EntityPumpkinSlime extends EntitySlime {
         this.setBlock(compound.getBoolean("IsBlockForm"));
         this.setType(compound.getInteger("Type"));
         this.rotation = compound.getFloat("LookRotation");
+        
+        if (compound.hasKey("Owner")) {
+            
+            this.setOwnerId(compound.getUniqueId("Owner"));
+            this.setSitting(compound.getBoolean("Sitting"));
+        }
     }
     
     @Override
@@ -228,5 +255,87 @@ public class EntityPumpkinSlime extends EntitySlime {
         // This override is to prevent more slimes from spawning when this one is
         // killed.
         this.isDead = true;
+    }
+    
+    public void setOwnerId (@Nullable UUID ownerId) {
+        
+        this.dataManager.set(OWNER, Optional.fromNullable(ownerId));
+    }
+    
+    @Override
+    public UUID getOwnerId () {
+        
+        return this.dataManager.get(OWNER).orNull();
+    }
+    
+    @Override
+    public Entity getOwner () {
+        
+        return this.getOwnerId() != null ? this.world.getPlayerEntityByUUID(this.getOwnerId()) : null;
+    }
+    
+    @Override
+    public boolean canDamagePlayer () {
+        
+        return this.getOwner() == null;
+    }
+    
+    @Override
+    public boolean processInteract (EntityPlayer player, EnumHand hand) {
+        
+        if (this.isOwner(player)) {
+            
+            final boolean shouldSit = !this.isSitting();
+            this.setSitting(shouldSit);
+            
+            if (!shouldSit) {
+                
+                this.transformToSlime();
+            }
+            
+            return true;
+        }
+        
+        else {
+            
+            final ItemStack heldItem = player.getHeldItem(hand);
+            
+            if (heldItem.getItem() == Items.PUMPKIN_PIE) {
+                
+                heldItem.shrink(1);
+                this.setOwnerId(player.getPersistentID());
+                this.playTameEffect(true);
+                return true;
+            }
+        }
+        
+        return super.processInteract(player, hand);
+    }
+    
+    public boolean isSitting () {
+        
+        return this.sitting;
+    }
+    
+    public void setSitting (boolean sit) {
+        
+        this.sitting = sit;
+    }
+    
+    public boolean isOwner (EntityPlayer player) {
+        
+        return player != null && this.getOwnerId() != null && this.getOwnerId().equals(player.getPersistentID());
+    }
+    
+    private void playTameEffect (boolean succeeded) {
+        
+        final EnumParticleTypes enumparticletypes = succeeded ? EnumParticleTypes.HEART : EnumParticleTypes.SMOKE_NORMAL;
+        
+        for (int i = 0; i < 7; ++i) {
+            final double d0 = this.rand.nextGaussian() * 0.02D;
+            final double d1 = this.rand.nextGaussian() * 0.02D;
+            final double d2 = this.rand.nextGaussian() * 0.02D;
+            this.world.spawnParticle(enumparticletypes, this.posX + this.rand.nextFloat() * this.width * 2.0F - this.width, this.posY + 0.5D + this.rand.nextFloat() * this.height, this.posZ + this.rand.nextFloat() * this.width * 2.0F - this.width, d0, d1, d2);
+        }
     }
 }
