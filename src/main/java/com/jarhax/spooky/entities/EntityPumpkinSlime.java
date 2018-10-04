@@ -14,7 +14,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
@@ -22,6 +24,8 @@ public class EntityPumpkinSlime extends EntitySlime {
     
     private static final DataParameter<Boolean> IS_BLOCK = EntityDataManager.<Boolean> createKey(EntityPumpkinSlime.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Integer> TYPE = EntityDataManager.<Integer> createKey(EntityPumpkinSlime.class, DataSerializers.VARINT);
+    
+    private float rotation = 0f;
     
     public EntityPumpkinSlime(World worldIn) {
         
@@ -106,31 +110,52 @@ public class EntityPumpkinSlime extends EntitySlime {
     
     private void transformToBlock () {
         
-        this.setBlock(true);
+        // This should not be called after it has turned into a block.
+        if (!this.isBlock()) {
+            
+            // Align position to the block grid.
+            this.posX = Math.floor(this.posX) + 0.5D;
+            this.posZ = Math.floor(this.posZ) + 0.5D;
+            this.setPosition(this.posX, this.posY, this.posZ);
+            
+            // Loop downwards to find an non-air block.
+            final MutableBlockPos pos = new MutableBlockPos(this.getPosition());
+            
+            while (this.world.isAirBlock(pos)) {
+                
+                pos.move(EnumFacing.DOWN);
+            }
+            
+            // Set the position to be one above the first non-air block.
+            this.setPosition(pos.getX() + 0.5f, pos.getY() + 1f, pos.getZ() + 0.5f);
+            
+            // Get a rotation that fits into one of the cardinal directions.
+            this.rotation = Math.round(this.rotationYaw / 90.0F) * 90.0F;
+            
+            // Ensure there are no targets.
+            this.setAttackTarget(null);
+            
+            // While in block form, the chase range is 4.5 blocks, same as player reach.
+            this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(4.5d);
+            
+            this.setBlock(true);
+        }
         
-        this.posX = Math.floor(this.posX) + 0.5D;
-        this.posZ = Math.floor(this.posZ) + 0.5D;
-        this.setPosition(this.posX, this.posY, this.posZ);
+        // Force mob to look at the rotation direction.
+        this.setRotation(this.rotation, 0f);
+        this.prevRotationYaw = this.rotation;
+        this.rotationYawHead = this.rotation;
+        this.renderYawOffset = this.rotation;
         
-        // this.rotationYaw = 0f;
-        final float rotation = Math.round(this.rotationYaw / 90.0F) * 90.0F;
-        this.setRotation(rotation, 0f);
-        this.prevRotationYaw = rotation;
-        this.rotationYawHead = rotation;
-        this.renderYawOffset = rotation;
-        
+        // Clear all motion to prevent it building up.
         this.motionX = 0;
         this.motionY = 0;
         this.motionZ = 0;
         
+        // Clear all movement to make extra sure it wont move.
         this.setMoveForward(0f);
         this.setMoveStrafing(0f);
         this.setMoveVertical(0f);
-        
-        this.setAttackTarget(null);
-        
-        // While in block form, the chase range is 4.5 blocks, same as player reach.
-        this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(4.5d);
     }
     
     @Override
