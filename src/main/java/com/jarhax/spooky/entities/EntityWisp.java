@@ -5,10 +5,10 @@ import net.minecraft.world.World;
 
 public class EntityWisp extends EntityLiving {
     
-    
     public EntityWisp(World worldIn) {
+        
         super(worldIn);
-        setSize(1, 1f);
+        this.setSize(1, 1f);
     }
     
 }

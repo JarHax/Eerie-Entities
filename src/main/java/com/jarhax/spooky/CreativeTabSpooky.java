@@ -25,11 +25,11 @@ public class CreativeTabSpooky extends CreativeTabs {
     
     @Override
     @SideOnly(Side.CLIENT)
-    public void displayAllRelevantItems(NonNullList<ItemStack> itemList) {
-
+    public void displayAllRelevantItems (NonNullList<ItemStack> itemList) {
+        
         super.displayAllRelevantItems(itemList);
         
-        for (ResourceLocation id : SpookyMod.REGISTRY.getEntityIds()) {
+        for (final ResourceLocation id : SpookyMod.REGISTRY.getEntityIds()) {
             
             final ItemStack spawner = new ItemStack(Items.SPAWN_EGG);
             ItemMonsterPlacer.applyEntityIdToItemStack(spawner, id);

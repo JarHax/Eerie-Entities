@@ -12,33 +12,37 @@ public class ClientEvents {
     public static float deltaTime = 0;
     public static float totalTime = 0;
     
-    private void calcDelta() {
-        float oldTotal = totalTime;
+    private void calcDelta () {
+        
+        final float oldTotal = totalTime;
         totalTime = gameTicks + partialTicks;
         deltaTime = totalTime - oldTotal;
     }
     
     @SubscribeEvent
-    public void onTickRenderTick(TickEvent.RenderTickEvent event) {
-        if(event.phase == TickEvent.Phase.START) {
+    public void onTickRenderTick (TickEvent.RenderTickEvent event) {
+        
+        if (event.phase == TickEvent.Phase.START) {
             partialTicks = event.renderTickTime;
-        } else {
-            calcDelta();
+        }
+        else {
+            this.calcDelta();
         }
         
     }
     
     @SubscribeEvent
-    public void clientTickEnd(TickEvent.ClientTickEvent event) {
-        if(event.phase == TickEvent.Phase.END) {
-            Minecraft mc = Minecraft.getMinecraft();
+    public void clientTickEnd (TickEvent.ClientTickEvent event) {
+        
+        if (event.phase == TickEvent.Phase.END) {
+            final Minecraft mc = Minecraft.getMinecraft();
             
-            GuiScreen gui = mc.currentScreen;
-            if(gui == null || !gui.doesGuiPauseGame()) {
+            final GuiScreen gui = mc.currentScreen;
+            if (gui == null || !gui.doesGuiPauseGame()) {
                 gameTicks++;
                 partialTicks = 0;
             }
-            calcDelta();
+            this.calcDelta();
         }
     }
 }

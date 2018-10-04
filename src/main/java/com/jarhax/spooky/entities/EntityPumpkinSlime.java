@@ -7,7 +7,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.MoverType;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityMoveHelper;
 import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -15,7 +14,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
@@ -30,15 +28,16 @@ public class EntityPumpkinSlime extends EntitySlime {
         super(worldIn);
     }
     
-    public int getType() {
-    	
-    	return this.dataManager.get(TYPE).intValue();
+    public int getType () {
+        
+        return this.dataManager.get(TYPE).intValue();
     }
     
-    public void setType(int value) {
-    	
-    	this.dataManager.set(TYPE, value);
+    public void setType (int value) {
+        
+        this.dataManager.set(TYPE, value);
     }
+    
     public void setBlock (boolean value) {
         
         this.dataManager.set(IS_BLOCK, value);
@@ -108,27 +107,27 @@ public class EntityPumpkinSlime extends EntitySlime {
     private void transformToBlock () {
         
         this.setBlock(true);
-         
-         this.posX = Math.floor(this.posX) + 0.5D;
-         this.posZ = Math.floor(this.posZ) + 0.5D;
-         this.setPosition(this.posX, this.posY, this.posZ);
         
-         //this.rotationYaw = 0f;
-         final float rotation = Math.round(this.rotationYaw / 90.0F) * 90.0F;
-         this.setRotation(rotation, 0f);
-         this.prevRotationYaw = rotation;
-         this.rotationYawHead = rotation;
-         this.renderYawOffset = rotation;
+        this.posX = Math.floor(this.posX) + 0.5D;
+        this.posZ = Math.floor(this.posZ) + 0.5D;
+        this.setPosition(this.posX, this.posY, this.posZ);
         
-         this.motionX = 0;
-         this.motionY = 0;
-         this.motionZ = 0;
+        // this.rotationYaw = 0f;
+        final float rotation = Math.round(this.rotationYaw / 90.0F) * 90.0F;
+        this.setRotation(rotation, 0f);
+        this.prevRotationYaw = rotation;
+        this.rotationYawHead = rotation;
+        this.renderYawOffset = rotation;
         
-         this.setMoveForward(0f);
-         this.setMoveStrafing(0f);
-         this.setMoveVertical(0f);
+        this.motionX = 0;
+        this.motionY = 0;
+        this.motionZ = 0;
         
-         this.setAttackTarget(null);
+        this.setMoveForward(0f);
+        this.setMoveStrafing(0f);
+        this.setMoveVertical(0f);
+        
+        this.setAttackTarget(null);
         
         // While in block form, the chase range is 4.5 blocks, same as player reach.
         this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(4.5d);
@@ -159,20 +158,20 @@ public class EntityPumpkinSlime extends EntitySlime {
     }
     
     @Override
-    public AxisAlignedBB getCollisionBoundingBox() {
-    	
+    public AxisAlignedBB getCollisionBoundingBox () {
+        
         return this.isEntityAlive() ? this.getEntityBoundingBox() : null;
     }
     
     @Override
-    public void applyEntityCollision(Entity entity) {
-    	
-    	// No collision please
+    public void applyEntityCollision (Entity entity) {
+        
+        // No collision please
     }
-
+    
     @Override
-    public float getCollisionBorderSize() {
-    	
+    public float getCollisionBorderSize () {
+        
         return 0.0F;
     }
     
@@ -191,7 +190,7 @@ public class EntityPumpkinSlime extends EntitySlime {
     }
     
     @Override
-    protected void setSize(float width, float height) {
+    protected void setSize (float width, float height) {
         
         super.setSize(0.99f, 0.99f);
     }
