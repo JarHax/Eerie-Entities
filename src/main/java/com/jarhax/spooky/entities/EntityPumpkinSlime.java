@@ -164,6 +164,7 @@ public class EntityPumpkinSlime extends EntitySlime {
         super.writeEntityToNBT(compound);
         compound.setBoolean("IsBlockForm", this.isBlock());
         compound.setInteger("Type", this.getType());
+        compound.setFloat("LookRotation", this.rotation);
     }
     
     @Override
@@ -172,6 +173,7 @@ public class EntityPumpkinSlime extends EntitySlime {
         super.readEntityFromNBT(compound);
         this.setBlock(compound.getBoolean("IsBlockForm"));
         this.setType(compound.getInteger("Type"));
+        this.rotation = compound.getFloat("LookRotation");
     }
     
     @Override
