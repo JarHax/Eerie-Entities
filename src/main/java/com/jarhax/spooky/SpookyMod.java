@@ -30,8 +30,8 @@ public class SpookyMod {
 	
 	@EventHandler
 	public void onPreInit(FMLPreInitializationEvent event) {
-	    //TODO make an instance for this??
-        EntityRegistry.registerModEntity(new ResourceLocation(MODID, "wisp"), EntityWisp.class, "wisp", 0, this, 32, 1, true);
+		
+		REGISTRY.registerMob(EntityWisp.class, "wisp", 0, 0x00ffff, 0x33ccff);
 	}
     
     @EventHandler
