@@ -44,6 +44,7 @@ public class EntityPumpkinSlime extends EntitySlime implements IEntityOwnable {
     
     private float rotation = 0f;
     private boolean sitting = false;
+    private boolean allowTaming = true;
     
     public EntityPumpkinSlime(World worldIn) {
         
@@ -184,6 +185,7 @@ public class EntityPumpkinSlime extends EntitySlime implements IEntityOwnable {
         compound.setBoolean("IsBlockForm", this.isBlock());
         compound.setInteger("Type", this.getType());
         compound.setFloat("LookRotation", this.rotation);
+        compound.setBoolean("AllowTaming", this.allowTaming);
         
         if (this.getOwnerId() != null) {
             
@@ -199,6 +201,7 @@ public class EntityPumpkinSlime extends EntitySlime implements IEntityOwnable {
         this.setBlock(compound.getBoolean("IsBlockForm"));
         this.setType(compound.getInteger("Type"));
         this.rotation = compound.getFloat("LookRotation");
+        this.allowTaming = compound.getBoolean("AllowTaming");
         
         if (compound.hasKey("Owner")) {
             
@@ -325,7 +328,7 @@ public class EntityPumpkinSlime extends EntitySlime implements IEntityOwnable {
             return true;
         }
         
-        else {
+        else if (this.allowTaming){
             
             final ItemStack heldItem = player.getHeldItem(hand);
             
