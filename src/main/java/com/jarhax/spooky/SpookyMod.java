@@ -10,6 +10,7 @@ import com.jarhax.spooky.entities.EntityWisp;
 import net.darkhax.bookshelf.lib.LoggingHelper;
 import net.darkhax.bookshelf.network.NetworkHandler;
 import net.darkhax.bookshelf.registry.RegistryHelper;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
@@ -31,6 +32,9 @@ public class SpookyMod {
     public static final LoggingHelper LOG = new LoggingHelper(NAME);
     public static final RegistryHelper REGISTRY = new RegistryHelper(MODID).setTab(new CreativeTabSpooky()).enableAutoRegistration();
     public static final NetworkHandler NETWORK = new NetworkHandler(MODID);
+    
+    public static final ResourceLocation LOOT_WISP = REGISTRY.registerLootTable("entities/wisp");
+    public static final ResourceLocation LOOT_PUMPKIN_SLIME = REGISTRY.registerLootTable("entities/pumpkin_slime");
     
     @EventHandler
     public void onPreInit (FMLPreInitializationEvent event) {

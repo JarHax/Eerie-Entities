@@ -5,6 +5,7 @@ import java.util.UUID;
 import javax.annotation.Nullable;
 
 import com.google.common.base.Optional;
+import com.jarhax.spooky.SpookyMod;
 
 import net.darkhax.bookshelf.lib.Constants;
 import net.darkhax.bookshelf.util.MathsUtils;
@@ -28,6 +29,7 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -211,6 +213,12 @@ public class EntityPumpkinSlime extends EntitySlime implements IEntityOwnable {
         super.onInitialSpawn(difficulty, livingdata);
         this.setSlimeSize(2, true);
         return livingdata;
+    }
+    
+    @Override
+    public ResourceLocation getLootTable() {
+        
+        return SpookyMod.LOOT_PUMPKIN_SLIME;
     }
     
     @Override
