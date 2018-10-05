@@ -1,4 +1,4 @@
-package com.jarhax.spooky.client;
+package com.jarhax.spooky.client.renderer.entity;
 
 import java.util.HashMap;
 
@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 import org.lwjgl.opengl.GL11;
 
 import com.jarhax.spooky.EerieEntities;
+import com.jarhax.spooky.client.ShaderHandler;
 import com.jarhax.spooky.entities.EntityWisp;
 
 import net.minecraft.client.renderer.BufferBuilder;

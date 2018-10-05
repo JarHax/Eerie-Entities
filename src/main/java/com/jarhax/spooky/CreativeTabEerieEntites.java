@@ -10,9 +10,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class CreativeTabSpooky extends CreativeTabs {
+public class CreativeTabEerieEntites extends CreativeTabs {
     
-    public CreativeTabSpooky() {
+    public CreativeTabEerieEntites() {
         
         super(EerieEntities.MODID);
     }

@@ -1,9 +1,9 @@
 package com.jarhax.spooky;
 
 import com.jarhax.spooky.client.ClientEvents;
-import com.jarhax.spooky.client.RenderWisp;
 import com.jarhax.spooky.client.ShaderHandler;
 import com.jarhax.spooky.client.renderer.entity.RenderPumpkinSlime;
+import com.jarhax.spooky.client.renderer.entity.RenderWisp;
 import com.jarhax.spooky.entities.EntityPumpkinSlime;
 import com.jarhax.spooky.entities.EntityWisp;
 
@@ -28,7 +28,7 @@ public class EerieEntities {
     public static final String NAME = "Eerie Entities";
     
     public static final LoggingHelper LOG = new LoggingHelper(NAME);
-    public static final RegistryHelper REGISTRY = new RegistryHelper(MODID).setTab(new CreativeTabSpooky()).enableAutoRegistration();
+    public static final RegistryHelper REGISTRY = new RegistryHelper(MODID).setTab(new CreativeTabEerieEntites()).enableAutoRegistration();
     public static final NetworkHandler NETWORK = new NetworkHandler(MODID);
     
     public static final ResourceLocation LOOT_WISP = REGISTRY.registerLootTable("entities/wisp");

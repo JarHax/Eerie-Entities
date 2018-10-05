@@ -1,4 +1,4 @@
-package com.jarhax.spooky.client;
+package com.jarhax.spooky.client.model;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
