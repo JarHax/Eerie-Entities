@@ -1,0 +1,6 @@
+#Entities
+entity.eerieentities.wisp.name=Will-O'-Wisp
+entity.eerieentities.pumpkin_slime.name=Pumpkin Slime
+
+#Misc
+itemGroup.eerieentities=Eerie Entities
