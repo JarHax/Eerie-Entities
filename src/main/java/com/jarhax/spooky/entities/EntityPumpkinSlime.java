@@ -5,7 +5,7 @@ import java.util.UUID;
 import javax.annotation.Nullable;
 
 import com.google.common.base.Optional;
-import com.jarhax.spooky.SpookyMod;
+import com.jarhax.spooky.EerieEntities;
 
 import net.darkhax.bookshelf.lib.Constants;
 import net.darkhax.bookshelf.util.MathsUtils;
@@ -218,7 +218,7 @@ public class EntityPumpkinSlime extends EntitySlime implements IEntityOwnable {
     @Override
     public ResourceLocation getLootTable() {
         
-        return SpookyMod.LOOT_PUMPKIN_SLIME;
+        return EerieEntities.LOOT_PUMPKIN_SLIME;
     }
     
     @Override

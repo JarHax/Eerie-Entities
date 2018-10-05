@@ -9,7 +9,7 @@ import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.ARBVertexShader;
 import org.lwjgl.opengl.GL11;
 
-import com.jarhax.spooky.SpookyMod;
+import com.jarhax.spooky.EerieEntities;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -23,7 +23,7 @@ public class ShaderHandler {
     public static void registerShaders () {
         
         try {
-            WISP = create("/assets/" + SpookyMod.MODID + "/shaders/wisp");
+            WISP = create("/assets/" + EerieEntities.MODID + "/shaders/wisp");
         }
         catch (final Exception e) {
             e.printStackTrace();

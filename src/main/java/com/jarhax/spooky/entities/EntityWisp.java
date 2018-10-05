@@ -1,6 +1,6 @@
 package com.jarhax.spooky.entities;
 
-import com.jarhax.spooky.SpookyMod;
+import com.jarhax.spooky.EerieEntities;
 
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.ResourceLocation;
@@ -17,6 +17,6 @@ public class EntityWisp extends EntityLiving {
     @Override
     public ResourceLocation getLootTable() {
         
-        return SpookyMod.LOOT_WISP;
+        return EerieEntities.LOOT_WISP;
     }
 }

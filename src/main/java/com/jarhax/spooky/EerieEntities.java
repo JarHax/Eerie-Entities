@@ -21,13 +21,11 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@Mod(modid = SpookyMod.MODID, name = SpookyMod.NAME, version = "@VERSION@", dependencies = "required-after:bookshelf@[2.3.562,);", certificateFingerprint = "@FINGERPRINT@")
-public class SpookyMod {
+@Mod(modid = EerieEntities.MODID, name = EerieEntities.NAME, version = "@VERSION@", dependencies = "required-after:bookshelf@[2.3.566,);", certificateFingerprint = "@FINGERPRINT@")
+public class EerieEntities {
     
-    // TODO change this before submission!
-    public static final String MODID = "spooky";
-    // TODO change this before submission!
-    public static final String NAME = "Spooky Mod";
+    public static final String MODID = "eerieentities";
+    public static final String NAME = "Eerie Entities";
     
     public static final LoggingHelper LOG = new LoggingHelper(NAME);
     public static final RegistryHelper REGISTRY = new RegistryHelper(MODID).setTab(new CreativeTabSpooky()).enableAutoRegistration();

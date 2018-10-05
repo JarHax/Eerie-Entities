@@ -6,6 +6,7 @@ import javax.annotation.Nullable;
 
 import org.lwjgl.opengl.GL11;
 
+import com.jarhax.spooky.EerieEntities;
 import com.jarhax.spooky.entities.EntityWisp;
 
 import net.minecraft.client.renderer.BufferBuilder;
@@ -27,7 +28,7 @@ public class RenderWisp extends Render<EntityWisp> {
     @Override
     protected ResourceLocation getEntityTexture (EntityWisp entity) {
         
-        return new ResourceLocation("spooky:textures/entity/wisp.png");
+        return new ResourceLocation(EerieEntities.MODID, "textures/entity/wisp.png");
     }
     
     @Override

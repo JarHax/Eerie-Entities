@@ -14,7 +14,7 @@ public class CreativeTabSpooky extends CreativeTabs {
     
     public CreativeTabSpooky() {
         
-        super(SpookyMod.MODID);
+        super(EerieEntities.MODID);
     }
     
     @Override
@@ -29,7 +29,7 @@ public class CreativeTabSpooky extends CreativeTabs {
         
         super.displayAllRelevantItems(itemList);
         
-        for (final ResourceLocation id : SpookyMod.REGISTRY.getEntityIds()) {
+        for (final ResourceLocation id : EerieEntities.REGISTRY.getEntityIds()) {
             
             final ItemStack spawner = new ItemStack(Items.SPAWN_EGG);
             ItemMonsterPlacer.applyEntityIdToItemStack(spawner, id);

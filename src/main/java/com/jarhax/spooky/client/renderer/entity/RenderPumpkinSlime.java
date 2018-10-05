@@ -1,6 +1,6 @@
 package com.jarhax.spooky.client.renderer.entity;
 
-import com.jarhax.spooky.SpookyMod;
+import com.jarhax.spooky.EerieEntities;
 import com.jarhax.spooky.client.ModelCube;
 import com.jarhax.spooky.entities.EntityPumpkinSlime;
 
@@ -38,6 +38,6 @@ public class RenderPumpkinSlime extends RenderLiving<EntityPumpkinSlime> {
     @Override
     protected ResourceLocation getEntityTexture (EntityPumpkinSlime entity) {
         
-        return new ResourceLocation(SpookyMod.MODID, "textures/entity/pumpkin/pumpkin_" + entity.getType() + ".png");
+        return new ResourceLocation(EerieEntities.MODID, "textures/entity/pumpkin/pumpkin_" + entity.getType() + ".png");
     }
 }
