@@ -315,29 +315,42 @@ public class EntityPumpkinSlime extends EntitySlime implements IEntityOwnable {
     @Override
     public boolean processInteract (EntityPlayer player, EnumHand hand) {
         
-        if (this.isOwner(player)) {
+        if (player.isServerWorld()) {
             
-            final boolean shouldSit = !this.isSitting();
-            this.setSitting(shouldSit);
-            
-            if (!shouldSit) {
+            if (this.isOwner(player)) {
                 
-                this.transformToSlime();
+                final boolean shouldSit = !this.isSitting();
+                this.setSitting(shouldSit);
+                
+                if (!shouldSit) {
+                    
+                    this.transformToSlime();
+                }
+                
+                return true;
             }
             
-            return true;
-        }
-        
-        else if (this.allowTaming){
-            
-            final ItemStack heldItem = player.getHeldItem(hand);
-            
-            if (heldItem.getItem() == Items.PUMPKIN_PIE) {
+            else if (this.allowTaming){
                 
-                heldItem.shrink(1);
-                this.setOwnerId(player.getPersistentID());
-                this.playTameEffect(true);
-                return true;
+                final ItemStack heldItem = player.getHeldItem(hand);
+                
+                if (heldItem.getItem() == Items.PUMPKIN_PIE) {
+                    
+                    heldItem.shrink(1);
+                    
+                    // TODO make configurable
+                    if (MathsUtils.tryPercentage(0.65)) {
+                        
+                        this.setOwnerId(player.getPersistentID());
+                        this.playTameEffect(true);
+                    }
+                    
+                    else {
+                        
+                        this.playTameEffect(false);
+                        return true;
+                    }
+                }
             }
         }
         
