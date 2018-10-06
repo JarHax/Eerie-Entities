@@ -6,6 +6,7 @@ import javax.annotation.Nullable;
 
 import com.google.common.base.Optional;
 import com.jarhax.spooky.EerieEntities;
+import com.jarhax.spooky.config.Config;
 
 import net.darkhax.bookshelf.lib.Constants;
 import net.darkhax.bookshelf.util.MathsUtils;
@@ -78,6 +79,13 @@ public class EntityPumpkinSlime extends EntitySlime implements IEntityOwnable {
         this.dataManager.register(IS_BLOCK, false);
         this.dataManager.register(TYPE, Constants.RANDOM.nextInt(6));
         this.dataManager.register(OWNER, Optional.absent());
+    }
+    
+    @Override
+    public void applyEntityAttributes () {
+        
+        super.applyEntityAttributes();
+        Config.slimeConfig.apply(this);
     }
     
     @Override
@@ -211,17 +219,21 @@ public class EntityPumpkinSlime extends EntitySlime implements IEntityOwnable {
     }
     
     @Override
-    public IEntityLivingData onInitialSpawn (DifficultyInstance difficulty, IEntityLivingData livingdata) {
+    public ResourceLocation getLootTable () {
         
-        super.onInitialSpawn(difficulty, livingdata);
-        this.setSlimeSize(2, true);
-        return livingdata;
+        return EerieEntities.LOOT_PUMPKIN_SLIME;
     }
     
     @Override
-    public ResourceLocation getLootTable() {
+    public void setSlimeSize(int size, boolean resetHealth) {
         
-        return EerieEntities.LOOT_PUMPKIN_SLIME;
+        // Disabling this method, because I don't want health to reset.
+    }
+    
+    @Override
+    public int getSlimeSize() {
+        
+        return 2;
     }
     
     @Override
@@ -252,8 +264,7 @@ public class EntityPumpkinSlime extends EntitySlime implements IEntityOwnable {
     @Override
     public int getMaxSpawnedInChunk () {
         
-        // TODO make this configurable.
-        return 4;
+        return Config.slimeConfig.getMaxInChunk();
     }
     
     @Override
@@ -300,12 +311,12 @@ public class EntityPumpkinSlime extends EntitySlime implements IEntityOwnable {
         
         for (int indx = 0; indx < size * 8; indx++) {
             
-            float randomDegree = this.rand.nextFloat() * ((float) Math.PI * 2F);
-            float randomOffset = this.rand.nextFloat() * 0.5F + 0.5F;
-            float offsetX = MathHelper.sin(randomDegree) * (float) size * 0.5F * randomOffset;
-            float offsetZ = MathHelper.cos(randomDegree) * (float) size * 0.5F * randomOffset;
-            double particleX = this.posX + (double) offsetX;
-            double particleY = this.posZ + (double) offsetZ;
+            final float randomDegree = this.rand.nextFloat() * ((float) Math.PI * 2F);
+            final float randomOffset = this.rand.nextFloat() * 0.5F + 0.5F;
+            final float offsetX = MathHelper.sin(randomDegree) * size * 0.5F * randomOffset;
+            final float offsetZ = MathHelper.cos(randomDegree) * size * 0.5F * randomOffset;
+            final double particleX = this.posX + offsetX;
+            final double particleY = this.posZ + offsetZ;
             this.world.spawnParticle(EnumParticleTypes.BLOCK_DUST, particleX, this.getEntityBoundingBox().minY, particleY, 0.0D, 0.0D, 0.0D, Block.getStateId(Blocks.PUMPKIN.getDefaultState()));
         }
         
@@ -330,7 +341,7 @@ public class EntityPumpkinSlime extends EntitySlime implements IEntityOwnable {
                 return true;
             }
             
-            else if (this.allowTaming){
+            else if (this.allowTaming) {
                 
                 final ItemStack heldItem = player.getHeldItem(hand);
                 

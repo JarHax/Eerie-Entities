@@ -4,6 +4,7 @@ import com.jarhax.spooky.client.ClientEvents;
 import com.jarhax.spooky.client.ShaderHandler;
 import com.jarhax.spooky.client.renderer.entity.RenderPumpkinSlime;
 import com.jarhax.spooky.client.renderer.entity.RenderWisp;
+import com.jarhax.spooky.config.Config;
 import com.jarhax.spooky.entities.EntityPumpkinSlime;
 import com.jarhax.spooky.entities.EntityWisp;
 
@@ -21,7 +22,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@Mod(modid = EerieEntities.MODID, name = EerieEntities.NAME, version = "@VERSION@", dependencies = "required-after:bookshelf@[2.3.566,);", certificateFingerprint = "@FINGERPRINT@")
+@Mod(modid = EerieEntities.MODID, name = EerieEntities.NAME, version = "@VERSION@", dependencies = "required-after:bookshelf@[2.3.566,);", certificateFingerprint = "@FINGERPRINT@", guiFactory = "com.jarhax.spooky.client.gui.GuiFactoryEerieEntities")
 public class EerieEntities {
     
     public static final String MODID = "eerieentities";
@@ -36,6 +37,8 @@ public class EerieEntities {
     
     @EventHandler
     public void onPreInit (FMLPreInitializationEvent event) {
+       
+        Config.syncConfigData();
         
         REGISTRY.registerMob(EntityWisp.class, "wisp", 0, 0x00ffff, 0x33ccff);
         REGISTRY.registerMob(EntityPumpkinSlime.class, "pumpkin_slime", 1, 0xB67317, 0x804809);
@@ -59,5 +62,6 @@ public class EerieEntities {
     @EventHandler
     public void onPostInit (FMLPostInitializationEvent event) {
         
+        Config.updateSpawnEntries();
     }
 }
