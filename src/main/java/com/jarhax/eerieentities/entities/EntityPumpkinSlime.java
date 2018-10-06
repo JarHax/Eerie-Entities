@@ -80,6 +80,7 @@ public class EntityPumpkinSlime extends EntitySlime implements IEntityOwnable {
         this.dataManager.register(IS_BLOCK, false);
         this.dataManager.register(TYPE, Constants.RANDOM.nextInt(6));
         this.dataManager.register(OWNER, Optional.absent());
+        this.setSize(0.99f, 0.99f);
     }
     
     @Override
