@@ -1,4 +1,4 @@
-package com.jarhax.spooky.client;
+package com.jarhax.eerieentities.client;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,7 +9,7 @@ import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.ARBVertexShader;
 import org.lwjgl.opengl.GL11;
 
-import com.jarhax.spooky.EerieEntities;
+import com.jarhax.eerieentities.EerieEntities;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;

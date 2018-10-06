@@ -1,4 +1,4 @@
-package com.jarhax.spooky.client;
+package com.jarhax.eerieentities.client;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;

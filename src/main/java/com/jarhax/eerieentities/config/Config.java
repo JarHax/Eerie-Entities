@@ -1,9 +1,9 @@
-package com.jarhax.spooky.config;
+package com.jarhax.eerieentities.config;
 
 import java.io.File;
 
-import com.jarhax.spooky.config.mob.MobConfigPumpkinSlime;
-import com.jarhax.spooky.entities.EntityPumpkinSlime;
+import com.jarhax.eerieentities.config.mob.MobConfigPumpkinSlime;
+import com.jarhax.eerieentities.entities.EntityPumpkinSlime;
 
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraftforge.common.config.Configuration;

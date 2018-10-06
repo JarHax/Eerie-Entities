@@ -1,12 +1,12 @@
-package com.jarhax.spooky.entities;
+package com.jarhax.eerieentities.entities;
 
 import java.util.UUID;
 
 import javax.annotation.Nullable;
 
 import com.google.common.base.Optional;
-import com.jarhax.spooky.EerieEntities;
-import com.jarhax.spooky.config.Config;
+import com.jarhax.eerieentities.EerieEntities;
+import com.jarhax.eerieentities.config.Config;
 
 import net.darkhax.bookshelf.lib.Constants;
 import net.darkhax.bookshelf.util.MathsUtils;

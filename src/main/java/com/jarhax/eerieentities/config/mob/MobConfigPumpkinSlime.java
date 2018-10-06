@@ -1,6 +1,6 @@
-package com.jarhax.spooky.config.mob;
+package com.jarhax.eerieentities.config.mob;
 
-import com.jarhax.spooky.config.MobConfig;
+import com.jarhax.eerieentities.config.MobConfig;
 
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EnumCreatureType;

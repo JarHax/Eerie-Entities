@@ -1,4 +1,4 @@
-package com.jarhax.spooky.client.gui;
+package com.jarhax.eerieentities.client.gui;
 
 import java.util.Collections;
 import java.util.Set;

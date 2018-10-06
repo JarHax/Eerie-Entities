@@ -1,4 +1,4 @@
-package com.jarhax.spooky.config;
+package com.jarhax.eerieentities.config;
 
 import java.util.ArrayList;
 import java.util.HashSet;

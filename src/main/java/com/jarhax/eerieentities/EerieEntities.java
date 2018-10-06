@@ -1,12 +1,12 @@
-package com.jarhax.spooky;
+package com.jarhax.eerieentities;
 
-import com.jarhax.spooky.client.ClientEvents;
-import com.jarhax.spooky.client.ShaderHandler;
-import com.jarhax.spooky.client.renderer.entity.RenderPumpkinSlime;
-import com.jarhax.spooky.client.renderer.entity.RenderWisp;
-import com.jarhax.spooky.config.Config;
-import com.jarhax.spooky.entities.EntityPumpkinSlime;
-import com.jarhax.spooky.entities.EntityWisp;
+import com.jarhax.eerieentities.client.ClientEvents;
+import com.jarhax.eerieentities.client.ShaderHandler;
+import com.jarhax.eerieentities.client.renderer.entity.RenderPumpkinSlime;
+import com.jarhax.eerieentities.client.renderer.entity.RenderWisp;
+import com.jarhax.eerieentities.config.Config;
+import com.jarhax.eerieentities.entities.EntityPumpkinSlime;
+import com.jarhax.eerieentities.entities.EntityWisp;
 
 import net.darkhax.bookshelf.lib.LoggingHelper;
 import net.darkhax.bookshelf.network.NetworkHandler;

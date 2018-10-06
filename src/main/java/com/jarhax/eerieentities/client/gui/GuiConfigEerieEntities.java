@@ -1,10 +1,10 @@
-package com.jarhax.spooky.client.gui;
+package com.jarhax.eerieentities.client.gui;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.jarhax.spooky.EerieEntities;
-import com.jarhax.spooky.config.Config;
+import com.jarhax.eerieentities.EerieEntities;
+import com.jarhax.eerieentities.config.Config;
 
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraftforge.common.config.ConfigElement;

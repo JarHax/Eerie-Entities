@@ -1,4 +1,4 @@
-package com.jarhax.spooky;
+package com.jarhax.eerieentities;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;

@@ -1,8 +1,8 @@
-package com.jarhax.spooky.client.renderer.entity;
+package com.jarhax.eerieentities.client.renderer.entity;
 
-import com.jarhax.spooky.EerieEntities;
-import com.jarhax.spooky.client.model.ModelCube;
-import com.jarhax.spooky.entities.EntityPumpkinSlime;
+import com.jarhax.eerieentities.EerieEntities;
+import com.jarhax.eerieentities.client.model.ModelCube;
+import com.jarhax.eerieentities.entities.EntityPumpkinSlime;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;

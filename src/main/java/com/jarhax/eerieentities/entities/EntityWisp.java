@@ -1,6 +1,6 @@
-package com.jarhax.spooky.entities;
+package com.jarhax.eerieentities.entities;
 
-import com.jarhax.spooky.EerieEntities;
+import com.jarhax.eerieentities.EerieEntities;
 
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.ResourceLocation;
