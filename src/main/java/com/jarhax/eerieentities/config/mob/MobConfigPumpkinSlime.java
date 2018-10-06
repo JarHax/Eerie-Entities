@@ -28,4 +28,24 @@ public class MobConfigPumpkinSlime extends MobConfig {
         this.dieInSunlight = config.getBoolean("dieAtDay", this.getName(), true, "Should untamed versions of this mob die during the day?");
         this.solidifyChance = config.getFloat("revertChance", this.getName(), 0.30f, 0f, 1f, "The chance that this mob will revert into a pumpkin block during day.");
     }
+
+    public boolean isAllowTaming () {
+        
+        return allowTaming;
+    }
+
+    public float getTameChance () {
+        
+        return tameChance;
+    }
+
+    public boolean isDieInSunlight () {
+        
+        return dieInSunlight;
+    }
+
+    public float getSolidifyChance () {
+        
+        return solidifyChance;
+    }
 }

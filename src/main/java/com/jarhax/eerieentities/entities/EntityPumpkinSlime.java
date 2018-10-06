@@ -87,7 +87,7 @@ public class EntityPumpkinSlime extends EntitySlime implements IEntityOwnable {
     public void applyEntityAttributes () {
         
         super.applyEntityAttributes();
-        Config.slimeConfig.apply(this);
+        Config.pumpkinSlime.apply(this);
     }
     
     @Override
@@ -107,11 +107,10 @@ public class EntityPumpkinSlime extends EntitySlime implements IEntityOwnable {
             }
             
             // The pumpkin slime dies if it's day and it's not in block form.
-            if (this.world.isDaytime()) {
+            if (this.world.isDaytime() && Config.pumpkinSlime.isDieInSunlight()) {
                 
-                // TODO make this configurable
                 // Slime has a chance to turn into a real pumpkin.
-                if (MathsUtils.tryPercentage(0.30)) {
+                if (MathsUtils.tryPercentage(Config.pumpkinSlime.getSolidifyChance())) {
                     this.world.setBlockState(this.getPosition(), Blocks.PUMPKIN.getDefaultState().withProperty(BlockHorizontal.FACING, this.getHorizontalFacing()));
                 }
                 
@@ -266,7 +265,7 @@ public class EntityPumpkinSlime extends EntitySlime implements IEntityOwnable {
     @Override
     public int getMaxSpawnedInChunk () {
         
-        return Config.slimeConfig.getMaxInChunk();
+        return Config.pumpkinSlime.getMaxInChunk();
     }
     
     @Override
@@ -349,7 +348,7 @@ public class EntityPumpkinSlime extends EntitySlime implements IEntityOwnable {
                 return true;
             }
             
-            else if (this.allowTaming) {
+            else if (this.allowTaming && Config.pumpkinSlime.isAllowTaming()) {
                 
                 final ItemStack heldItem = player.getHeldItem(hand);
                 
@@ -357,8 +356,7 @@ public class EntityPumpkinSlime extends EntitySlime implements IEntityOwnable {
                     
                     heldItem.shrink(1);
                     
-                    // TODO make configurable
-                    if (MathsUtils.tryPercentage(0.65)) {
+                    if (MathsUtils.tryPercentage(Config.pumpkinSlime.getTameChance())) {
                         
                         this.setOwnerId(player.getPersistentID());
                         this.playTameEffect(true);
