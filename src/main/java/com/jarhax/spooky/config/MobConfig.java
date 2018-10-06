@@ -1,8 +1,11 @@
 package com.jarhax.spooky.config;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -95,18 +98,20 @@ public class MobConfig {
         
         if (this.biomesDefault.length > 0 && this.getSpawnWeight() != 0) {
             
+            Set<Biome> biomes = new HashSet<>();
+            
             for (final String biomeKey : this.biomes) {
                 
                 // This is a biome dictionary entry.
                 if (biomeKey.startsWith("type=")) {
                     
-                    final Type biomeType = byName.get(biomeKey.substring(5));
+                    final Type biomeType = byName.get(biomeKey.substring(5).toUpperCase(Locale.ROOT));
                     
                     if (biomeType != null) {
                         
                         for (final Biome biome : BiomeDictionary.getBiomes(biomeType)) {
                             
-                            this.addSpawnToBiome(biome);
+                            biomes.add(biome);
                         }
                     }
                 }
@@ -117,16 +122,16 @@ public class MobConfig {
                     
                     if (biome != null) {
                         
-                        this.addSpawnToBiome(biome);
+                        biomes.add(biome);
                     }
                 }
             }
+            
+            for (Biome biome : biomes) {
+                
+                biome.getSpawnableList(this.mobType).add(new SpawnListEntry(this.entClass, this.getSpawnWeight(), this.getMinPackSize(), this.getMaxPackSize()));
+            }
         }
-    }
-    
-    private void addSpawnToBiome (Biome biome) {
-        
-        biome.getSpawnableList(this.mobType).add(new SpawnListEntry(this.entClass, this.getSpawnWeight(), this.getMinPackSize(), this.getMaxPackSize()));
     }
     
     public void syncConfig (Configuration config) {
