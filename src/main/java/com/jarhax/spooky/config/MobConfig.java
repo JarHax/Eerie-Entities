@@ -75,7 +75,7 @@ public class MobConfig {
         this.setAttribute(entity, SharedMonsterAttributes.ATTACK_DAMAGE, this.getAttack());
     }
     
-    private void setAttribute(EntityLivingBase entity, IAttribute type, double amount) {
+    private void setAttribute (EntityLivingBase entity, IAttribute type, double amount) {
         
         IAttributeInstance attribute = entity.getEntityAttribute(type);
         

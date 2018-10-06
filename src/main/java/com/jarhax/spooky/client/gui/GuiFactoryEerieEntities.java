@@ -11,18 +11,18 @@ public class GuiFactoryEerieEntities implements IModGuiFactory {
     
     @Override
     public void initialize (Minecraft mc) {
-    
+        
         // not used yet.
     }
-
+    
     @Override
-    public boolean hasConfigGui() {
+    public boolean hasConfigGui () {
         
         return true;
     }
-
+    
     @Override
-    public GuiScreen createConfigGui(GuiScreen parent) {
+    public GuiScreen createConfigGui (GuiScreen parent) {
         
         return new GuiConfigEerieEntities(parent);
     }
@@ -30,6 +30,6 @@ public class GuiFactoryEerieEntities implements IModGuiFactory {
     @Override
     public Set<RuntimeOptionCategoryElement> runtimeGuiCategories () {
         
-        return Collections.<RuntimeOptionCategoryElement>emptySet();
+        return Collections.<RuntimeOptionCategoryElement> emptySet();
     }
 }

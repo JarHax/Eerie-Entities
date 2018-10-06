@@ -15,7 +15,7 @@ public class EntityWisp extends EntityLiving {
     }
     
     @Override
-    public ResourceLocation getLootTable() {
+    public ResourceLocation getLootTable () {
         
         return EerieEntities.LOOT_WISP;
     }

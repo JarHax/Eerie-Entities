@@ -37,7 +37,7 @@ public class EerieEntities {
     
     @EventHandler
     public void onPreInit (FMLPreInitializationEvent event) {
-       
+        
         Config.syncConfigData();
         
         REGISTRY.registerMob(EntityWisp.class, "wisp", 0, 0x00ffff, 0x33ccff);

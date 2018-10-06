@@ -29,7 +29,7 @@ public class GuiConfigEerieEntities extends GuiConfig {
             
             elements.add(new ConfigElement(cfg.getCategory(name)));
         }
-            
+        
         return elements;
     }
 }

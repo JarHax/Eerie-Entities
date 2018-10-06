@@ -13,7 +13,6 @@ import net.darkhax.bookshelf.util.MathsUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.IEntityOwnable;
 import net.minecraft.entity.MoverType;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -34,7 +33,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
 public class EntityPumpkinSlime extends EntitySlime implements IEntityOwnable {
@@ -225,13 +223,13 @@ public class EntityPumpkinSlime extends EntitySlime implements IEntityOwnable {
     }
     
     @Override
-    public void setSlimeSize(int size, boolean resetHealth) {
+    public void setSlimeSize (int size, boolean resetHealth) {
         
         // Disabling this method, because I don't want health to reset.
     }
     
     @Override
-    public int getSlimeSize() {
+    public int getSlimeSize () {
         
         return 2;
     }
