@@ -299,7 +299,7 @@ public class EntityPumpkinSlime extends EntitySlime implements IEntityOwnable {
     @Override
     public boolean canDamagePlayer () {
         
-        return this.getOwner() == null;
+        return !this.isBlock() && this.getOwner() == null;
     }
     
     @Override
