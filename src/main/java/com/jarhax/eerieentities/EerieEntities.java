@@ -2,9 +2,11 @@ package com.jarhax.eerieentities;
 
 import com.jarhax.eerieentities.client.ClientEvents;
 import com.jarhax.eerieentities.client.ShaderHandler;
+import com.jarhax.eerieentities.client.renderer.entity.RenderNetherKnight;
 import com.jarhax.eerieentities.client.renderer.entity.RenderPumpkinSlime;
 import com.jarhax.eerieentities.client.renderer.entity.RenderWisp;
 import com.jarhax.eerieentities.config.Config;
+import com.jarhax.eerieentities.entities.EntityNetherKnight;
 import com.jarhax.eerieentities.entities.EntityPumpkinSlime;
 import com.jarhax.eerieentities.entities.EntityWisp;
 
@@ -42,6 +44,7 @@ public class EerieEntities {
         
         REGISTRY.registerMob(EntityWisp.class, "wisp", 0, 0x00ffff, 0x33ccff);
         REGISTRY.registerMob(EntityPumpkinSlime.class, "pumpkin_slime", 1, 0xB67317, 0x804809);
+        REGISTRY.registerMob(EntityNetherKnight.class, "nether_knight", 2, 16775294, 16167425);
     }
     
     @EventHandler
@@ -52,6 +55,7 @@ public class EerieEntities {
         MinecraftForge.EVENT_BUS.register(new ClientEvents());
         RenderingRegistry.registerEntityRenderingHandler(EntityWisp.class, RenderWisp::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityPumpkinSlime.class, RenderPumpkinSlime::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntityNetherKnight.class, RenderNetherKnight::new);
     }
     
     @EventHandler
