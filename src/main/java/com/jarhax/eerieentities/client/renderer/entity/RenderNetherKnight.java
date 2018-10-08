@@ -9,7 +9,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 
 public class RenderNetherKnight extends RenderLiving<EntityNetherKnight> {
-
+    
     public RenderNetherKnight(RenderManager rendermanagerIn) {
         
         super(rendermanagerIn, new ModelNetherKnight(), 0f);
@@ -18,7 +18,7 @@ public class RenderNetherKnight extends RenderLiving<EntityNetherKnight> {
         this.addLayer(new RenderLayerShield(EnumFacing.SOUTH));
         this.addLayer(new RenderLayerShield(EnumFacing.WEST));
     }
-
+    
     @Override
     protected ResourceLocation getEntityTexture (EntityNetherKnight entity) {
         

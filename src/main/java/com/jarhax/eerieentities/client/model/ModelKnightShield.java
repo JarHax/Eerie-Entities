@@ -2,12 +2,11 @@ package com.jarhax.eerieentities.client.model;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.entity.Entity;
 
 public class ModelKnightShield extends ModelBase {
     
-    private ModelRenderer shield;
-
+    private final ModelRenderer shield;
+    
     public ModelKnightShield() {
         
         this.textureWidth = 64;
@@ -17,7 +16,7 @@ public class ModelKnightShield extends ModelBase {
         this.shield.addBox(-6.0F, -12.0F, -0.5F, 12, 24, 1, 0.0F);
     }
     
-    public void render(float scale) {
+    public void render (float scale) {
         
         this.shield.render(scale);
     }
