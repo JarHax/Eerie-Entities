@@ -98,7 +98,7 @@ public class MobConfig {
         
         if (this.biomesDefault.length > 0 && this.getSpawnWeight() != 0) {
             
-            Set<Biome> biomes = new HashSet<>();
+            final Set<Biome> biomes = new HashSet<>();
             
             for (final String biomeKey : this.biomes) {
                 
@@ -127,7 +127,7 @@ public class MobConfig {
                 }
             }
             
-            for (Biome biome : biomes) {
+            for (final Biome biome : biomes) {
                 
                 biome.getSpawnableList(this.mobType).add(new SpawnListEntry(this.entClass, this.getSpawnWeight(), this.getMinPackSize(), this.getMaxPackSize()));
             }
