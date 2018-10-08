@@ -29,7 +29,7 @@ public class RenderPumpkinSlime extends RenderLiving<EntityPumpkinSlime> {
     protected void preRenderCallback (EntityPumpkinSlime entity, float partialTickTime) {
         
         GlStateManager.scale(0.5f, 0.5f, 0.5f);
-        final float f1 = entity.getSlimeSize();
+        final float f1 = 2;
         final float f2 = (entity.prevSquishFactor + (entity.squishFactor - entity.prevSquishFactor) * partialTickTime) / (f1 * 0.5F + 1.0F);
         final float f3 = 1.0F / (f2 + 1.0F);
         GlStateManager.scale(f3 * f1, 1.0F / f3 * f1, f3 * f1);
