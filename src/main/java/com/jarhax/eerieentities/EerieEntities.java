@@ -50,8 +50,6 @@ public class EerieEntities {
         REGISTRY.registerMob(EntityWisp.class, "wisp", 0, 0x00ffff, 0x33ccff);
         REGISTRY.registerMob(EntityPumpkinSlime.class, "pumpkin_slime", 1, 0xB67317, 0x804809);
         REGISTRY.registerMob(EntityNetherKnight.class, "nether_knight", 2, 16775294, 16167425);
-        
-        MinecraftForge.EVENT_BUS.register(this);
     }
     
     @EventHandler
@@ -63,12 +61,6 @@ public class EerieEntities {
         RenderingRegistry.registerEntityRenderingHandler(EntityWisp.class, RenderWisp::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityPumpkinSlime.class, RenderPumpkinSlime::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityNetherKnight.class, RenderNetherKnight::new);
-    }
-    
-    @SubscribeEvent
-    public void onClient (TickEvent.RenderTickEvent evt) {
-        
-        fontRunelic.drawString("HELLO AGAIN FRIEND OF A FRIEND", 50, 50, 0xFFAABB);
     }
     
     @EventHandler
