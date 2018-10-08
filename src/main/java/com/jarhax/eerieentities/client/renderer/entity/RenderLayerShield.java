@@ -1,11 +1,18 @@
 package com.jarhax.eerieentities.client.renderer.entity;
 
+import com.jarhax.eerieentities.EerieEntities;
+import com.jarhax.eerieentities.client.ShaderHandler;
 import com.jarhax.eerieentities.client.model.ModelKnightShield;
 import com.jarhax.eerieentities.entities.EntityNetherKnight;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.client.shader.ShaderManager;
+import net.minecraft.util.*;
+import net.minecraft.util.math.MathHelper;
+
+import java.util.HashMap;
 
 public class RenderLayerShield implements LayerRenderer<EntityNetherKnight> {
     
@@ -34,10 +41,21 @@ public class RenderLayerShield implements LayerRenderer<EntityNetherKnight> {
         
         // Counter act the natural mob rotation.
         angle -= -(180.0F - this.interpolateRotation(entity.prevRenderYawOffset, entity.renderYawOffset, partialTicks));
+        // Smooths the rotation
+        angle += partialTicks;
         
         GlStateManager.rotate(angle, 0, 1, 0);
         GlStateManager.rotate(-24, 1, 0, 0);
+        GlStateManager.color(1f,1f,1f,1f);
+        Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(EerieEntities.MODID, "textures/entity/nether_knight/nether_knight.png"));
         this.shieldModel.render(0.0625F);
+        // 0.001 to get rid of zfighting
+        GlStateManager.translate(-0.25,0.25, -((10f/16f) + (0.5f/16f)+0.001));
+        GlStateManager.scale(0.0625f,0.0625f,0.0625f);
+        GlStateManager.enableBlend();
+        GlStateManager.blendFunc(770,769);
+        EerieEntities.fontRunelic.drawString("DARK".charAt(direction.getHorizontalIndex()) + "", 0, 0, 0x00FFFF);
+        GlStateManager.disableBlend();
         GlStateManager.popMatrix();
     }
     
