@@ -13,6 +13,7 @@ import net.darkhax.bookshelf.util.MathsUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityOwnable;
 import net.minecraft.entity.MoverType;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -20,12 +21,14 @@ import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
@@ -34,6 +37,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
 public class EntityPumpkinSlime extends EntitySlime implements IEntityOwnable {
@@ -119,6 +123,24 @@ public class EntityPumpkinSlime extends EntitySlime implements IEntityOwnable {
     }
     
     @Override
+    protected void dealDamage(EntityLivingBase entityIn)
+    {
+        int i = 2;
+
+        if (this.canEntityBeSeen(entityIn) && this.getDistanceSq(entityIn) < 0.6D * (double)i * 0.6D * (double)i && entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), (float)this.getAttackStrength()))
+        {
+            this.playSound(SoundEvents.ENTITY_SLIME_ATTACK, 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
+            this.applyEnchantments(this, entityIn);
+        }
+    }
+    
+    @Override
+    public int getAttackStrength() {
+        
+        return (int) this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
+    }
+    
+    @Override
     public void move (MoverType type, double x, double y, double z) {
         
         if (!this.isBlock()) {
@@ -136,6 +158,11 @@ public class EntityPumpkinSlime extends EntitySlime implements IEntityOwnable {
     }
     
     private void transformToBlock () {
+        
+        if (!this.world.isRemote && this.world.getDifficulty() == EnumDifficulty.PEACEFUL && this.getOwnerId() == null) {
+            
+            this.isDead = true;
+        }
         
         // This should not be called after it has turned into a block.
         if (!this.isBlock()) {
@@ -232,7 +259,7 @@ public class EntityPumpkinSlime extends EntitySlime implements IEntityOwnable {
     @Override
     public int getSlimeSize () {
         
-        return 2;
+        return 0;
     }
     
     @Override
