@@ -14,6 +14,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.IEntityOwnable;
 import net.minecraft.entity.MoverType;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -37,6 +38,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
@@ -80,9 +82,8 @@ public class EntityPumpkinSlime extends EntitySlime implements IEntityOwnable {
         
         super.entityInit();
         this.dataManager.register(IS_BLOCK, false);
-        this.dataManager.register(TYPE, Constants.RANDOM.nextInt(6));
+        this.dataManager.register(TYPE, 0);
         this.dataManager.register(OWNER, Optional.absent());
-        this.setSize(0.99f, 0.99f);
     }
     
     @Override
@@ -90,6 +91,15 @@ public class EntityPumpkinSlime extends EntitySlime implements IEntityOwnable {
         
         super.applyEntityAttributes();
         Config.pumpkinSlime.apply(this);
+    }
+    
+    @Override
+    public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
+        
+        livingdata = super.onInitialSpawn(difficulty, livingdata);
+        this.setType(Constants.RANDOM.nextInt(6));
+        this.setSize(0.99f, 0.99f);
+        return livingdata;
     }
     
     @Override
