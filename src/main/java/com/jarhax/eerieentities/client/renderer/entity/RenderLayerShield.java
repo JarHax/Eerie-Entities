@@ -54,7 +54,7 @@ public class RenderLayerShield implements LayerRenderer<EntityNetherKnight> {
         GlStateManager.scale(0.0625f,0.0625f,0.0625f);
         GlStateManager.enableBlend();
         GlStateManager.blendFunc(770,769);
-        EerieEntities.fontRunelic.drawString("DARK".charAt(direction.getHorizontalIndex()) + "", 0, 0, 0x00FFFF);
+        EerieEntities.fontRunelic.drawString(String.valueOf(entity.getRune(direction.getHorizontalIndex())), 0, 0, 0x00FFFF);
         GlStateManager.disableBlend();
         GlStateManager.popMatrix();
     }
