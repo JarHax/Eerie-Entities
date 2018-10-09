@@ -94,7 +94,7 @@ public class EntityPumpkinSlime extends EntitySlime implements IEntityOwnable {
     }
     
     @Override
-    public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
+    public IEntityLivingData onInitialSpawn (DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
         
         livingdata = super.onInitialSpawn(difficulty, livingdata);
         this.setType(Constants.RANDOM.nextInt(6));
@@ -133,19 +133,18 @@ public class EntityPumpkinSlime extends EntitySlime implements IEntityOwnable {
     }
     
     @Override
-    protected void dealDamage(EntityLivingBase entityIn)
-    {
-        int i = 2;
-
-        if (this.canEntityBeSeen(entityIn) && this.getDistanceSq(entityIn) < 0.6D * (double)i * 0.6D * (double)i && entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), (float)this.getAttackStrength()))
-        {
+    protected void dealDamage (EntityLivingBase entityIn) {
+        
+        final int i = 2;
+        
+        if (this.canEntityBeSeen(entityIn) && this.getDistanceSq(entityIn) < 0.6D * i * 0.6D * i && entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), this.getAttackStrength())) {
             this.playSound(SoundEvents.ENTITY_SLIME_ATTACK, 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
             this.applyEnchantments(this, entityIn);
         }
     }
     
     @Override
-    public int getAttackStrength() {
+    public int getAttackStrength () {
         
         return (int) this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
     }

@@ -15,7 +15,7 @@ import net.minecraft.world.World;
 public class EntityNetherKnight extends EntityBlaze {
     
     private static final DataParameter<Integer> RUNE_WORD = EntityDataManager.<Integer> createKey(EntityNetherKnight.class, DataSerializers.VARINT);
-    public static final char[][] WORDS = {{68, 65, 82, 75}, {70, 73, 82, 69}, {71, 69, 71, 89}, {83, 65, 76, 84}, {67, 85, 78, 84}};
+    public static final char[][] WORDS = { { 68, 65, 82, 75 }, { 70, 73, 82, 69 }, { 71, 69, 71, 89 }, { 83, 65, 76, 84 }, { 67, 85, 78, 84 } };
     
     public EntityNetherKnight(World world) {
         
@@ -26,7 +26,7 @@ public class EntityNetherKnight extends EntityBlaze {
         
         return this.dataManager.get(RUNE_WORD).intValue();
     }
-       
+    
     public void setRuneWord (int value) {
         
         this.dataManager.set(RUNE_WORD, value);
@@ -40,7 +40,7 @@ public class EntityNetherKnight extends EntityBlaze {
     }
     
     @Override
-    public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
+    public IEntityLivingData onInitialSpawn (DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
         
         livingdata = super.onInitialSpawn(difficulty, livingdata);
         this.setRuneWord(Constants.RANDOM.nextInt(WORDS.length));
@@ -59,9 +59,9 @@ public class EntityNetherKnight extends EntityBlaze {
         
         super.readEntityFromNBT(compound);
         this.setRuneWord(compound.getInteger("RuneWord"));
-    }   
+    }
     
-    public char getRune(int index) {
+    public char getRune (int index) {
         
         return index >= 0 && index < 4 ? WORDS[this.getRuneWord()][index] : 'X';
     }
