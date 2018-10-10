@@ -31,6 +31,11 @@ public class EntityNetherKnight extends EntityBlaze {
         
         this.dataManager.set(RUNE_WORD, value);
     }
+       
+    public char getRune (int index) {
+        
+        return index >= 0 && index < 4 ? WORDS[this.getRuneWord()][index] : 'X';
+    }
     
     @Override
     public void entityInit () {
@@ -61,8 +66,9 @@ public class EntityNetherKnight extends EntityBlaze {
         this.setRuneWord(compound.getInteger("RuneWord"));
     }
     
-    public char getRune (int index) {
+    @Override
+    public float getEyeHeight() {
         
-        return index >= 0 && index < 4 ? WORDS[this.getRuneWord()][index] : 'X';
+        return this.height * 1.15F;
     }
 }
