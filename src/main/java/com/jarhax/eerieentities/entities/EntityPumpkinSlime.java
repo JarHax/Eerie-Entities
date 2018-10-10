@@ -55,6 +55,7 @@ public class EntityPumpkinSlime extends EntitySlime implements IEntityOwnable {
     public EntityPumpkinSlime(World worldIn) {
         
         super(worldIn);
+        this.setSize(0.99f, 0.99f);
     }
     
     public int getType () {
@@ -98,7 +99,6 @@ public class EntityPumpkinSlime extends EntitySlime implements IEntityOwnable {
         
         livingdata = super.onInitialSpawn(difficulty, livingdata);
         this.setType(Constants.RANDOM.nextInt(6));
-        this.setSize(0.99f, 0.99f);
         return livingdata;
     }
     
