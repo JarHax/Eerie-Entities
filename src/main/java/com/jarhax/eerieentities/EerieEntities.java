@@ -26,7 +26,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@Mod(modid = EerieEntities.MODID, name = EerieEntities.NAME, version = "@VERSION@", dependencies = "required-after:bookshelf@[2.3.566,);", certificateFingerprint = "@FINGERPRINT@", guiFactory = "com.jarhax.spooky.client.gui.GuiFactoryEerieEntities")
+@Mod(modid = EerieEntities.MODID, name = EerieEntities.NAME, version = "@VERSION@", dependencies = "required-after:bookshelf@[2.3.566,);", certificateFingerprint = "@FINGERPRINT@", guiFactory = "com.jarhax.eerieentities.client.gui.GuiFactoryEerieEntities")
 public class EerieEntities {
     
     public static final String MODID = "eerieentities";
