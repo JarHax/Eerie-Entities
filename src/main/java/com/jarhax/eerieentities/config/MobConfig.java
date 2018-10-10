@@ -136,6 +136,7 @@ public class MobConfig {
     
     public void syncConfig (Configuration config) {
         
+        config.setCategoryComment(this.name, "Options for the " + this.name + " mob.");
         this.maxHealth = config.getFloat("health", this.name, (float) this.maxHealthDefault, 0f, 1024f, "The maximum health for this mob.");
         this.speed = config.getFloat("speed", this.name, (float) this.speedDefault, 0f, 1024f, "The general movement speed for this mob.");
         this.armor = config.getFloat("armor", this.name, (float) this.armorDefault, 0f, 1024f, "The amount of armor protection this mob has by defualt.");
