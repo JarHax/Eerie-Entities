@@ -1,6 +1,7 @@
-package com.jarhax.eerieentities.client.renderer.entity;
+package com.jarhax.eerieentities.client.renderer.entity.knight;
 
-import com.jarhax.eerieentities.client.model.ModelNetherKnight;
+import com.jarhax.eerieentities.EerieEntities;
+import com.jarhax.eerieentities.client.model.ModelEmpty;
 import com.jarhax.eerieentities.entities.EntityNetherKnight;
 
 import net.minecraft.client.renderer.entity.RenderLiving;
@@ -10,9 +11,12 @@ import net.minecraft.util.ResourceLocation;
 
 public class RenderNetherKnight extends RenderLiving<EntityNetherKnight> {
     
+    private static final ResourceLocation TEXTURE_HEAD = new ResourceLocation(EerieEntities.MODID, "textures/entity/nether_knight/head.png");
+    
     public RenderNetherKnight(RenderManager rendermanagerIn) {
         
-        super(rendermanagerIn, new ModelNetherKnight(), 0f);
+        super(rendermanagerIn, new ModelEmpty(), 0f);
+        this.addLayer(new RenderLayerHead());
         this.addLayer(new RenderLayerShield(EnumFacing.NORTH));
         this.addLayer(new RenderLayerShield(EnumFacing.EAST));
         this.addLayer(new RenderLayerShield(EnumFacing.SOUTH));
@@ -22,6 +26,6 @@ public class RenderNetherKnight extends RenderLiving<EntityNetherKnight> {
     @Override
     protected ResourceLocation getEntityTexture (EntityNetherKnight entity) {
         
-        return null;
+        return TEXTURE_HEAD;
     }
 }

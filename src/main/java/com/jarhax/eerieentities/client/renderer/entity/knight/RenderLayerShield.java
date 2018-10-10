@@ -1,4 +1,4 @@
-package com.jarhax.eerieentities.client.renderer.entity;
+package com.jarhax.eerieentities.client.renderer.entity.knight;
 
 import com.jarhax.eerieentities.EerieEntities;
 import com.jarhax.eerieentities.client.model.ModelKnightShield;
