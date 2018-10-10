@@ -2,6 +2,8 @@ package com.jarhax.eerieentities;
 
 import java.io.File;
 
+import net.minecraft.util.ResourceLocation;
+
 public class Configuration extends net.minecraftforge.common.config.Configuration{
     
     public Configuration(String file) {
@@ -20,5 +22,23 @@ public class Configuration extends net.minecraftforge.common.config.Configuratio
     public double getDouble(String name, String category, double defaultValue, double minValue, double maxValue, String comment) {
         
         return this.getFloat(name, category, (float) defaultValue, (float) minValue, (float) maxValue, comment);
+    }
+    
+    public ResourceLocation getResourceLocation(String name, String category, String defaultValue, String comment) {
+        
+        return new ResourceLocation(this.getString(name, category, defaultValue, comment));
+    }
+    
+    public ResourceLocation[] getResourceLocationList(String name, String category, String[] defaultValues, String comment) {
+        
+        final String[] entries = this.getStringList(name, category, defaultValues, comment);
+        final ResourceLocation[] locations = new ResourceLocation[entries.length];
+        
+        for (int i = 0; i < entries.length; i++) {
+            
+            locations[i] = new ResourceLocation(entries[i]);
+        }
+        
+        return locations;
     }
 }
