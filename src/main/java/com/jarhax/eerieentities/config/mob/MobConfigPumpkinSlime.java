@@ -1,6 +1,7 @@
 package com.jarhax.eerieentities.config.mob;
 
 import com.jarhax.eerieentities.config.MobConfig;
+import com.jarhax.eerieentities.entities.EntityPumpkinSlime;
 
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EnumCreatureType;
@@ -13,9 +14,9 @@ public class MobConfigPumpkinSlime extends MobConfig {
     private boolean dieInSunlight;
     private float solidifyChance;
     
-    public MobConfigPumpkinSlime(String name, Class<? extends EntityLiving> entClass, EnumCreatureType mobType, double maxHealthDefault, double speedDefault, double armorDefault, double attackDefault, int maxInChunkDefault, int minPackSizeDefault, int maxPackSizeDefault, int spawnWeightDefault, String... biomesDefault) {
+    public MobConfigPumpkinSlime(double maxHealthDefault, double speedDefault, double armorDefault, double attackDefault, int maxInChunkDefault, int minPackSizeDefault, int maxPackSizeDefault, int spawnWeightDefault, String... biomesDefault) {
         
-        super(name, entClass, mobType, maxHealthDefault, speedDefault, armorDefault, attackDefault, maxInChunkDefault, minPackSizeDefault, maxPackSizeDefault, spawnWeightDefault, biomesDefault);
+        super("pumpkin_slime", EntityPumpkinSlime.class, EnumCreatureType.MONSTER, maxHealthDefault, speedDefault, armorDefault, attackDefault, maxInChunkDefault, minPackSizeDefault, maxPackSizeDefault, spawnWeightDefault, biomesDefault);
     }
     
     @Override
