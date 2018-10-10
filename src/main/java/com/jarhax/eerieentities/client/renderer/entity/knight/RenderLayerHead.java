@@ -21,7 +21,7 @@ public class RenderLayerHead implements LayerRenderer<EntityNetherKnight> {
         GlStateManager.pushMatrix();
         
         GlStateManager.translate(0, -0.5, 0);
-        headModel.render(0.0625f);
+        this.headModel.render(0.0625f);
         GlStateManager.popMatrix();
     }
     

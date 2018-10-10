@@ -12,10 +12,10 @@ public class MobConfigNetherKnight extends MobConfig {
         
         super("nether_knight", EntityNetherKnight.class, EnumCreatureType.MONSTER, maxHealthDefault, speedDefault, armorDefault, attackDefault, maxInChunkDefault, minPackSizeDefault, maxPackSizeDefault, spawnWeightDefault, biomesDefault);
     }
-
+    
     @Override
     public void syncConfig (Configuration config) {
         
-        super.syncConfig(config);       
+        super.syncConfig(config);
     }
 }

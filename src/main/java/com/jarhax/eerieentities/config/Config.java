@@ -4,9 +4,7 @@ import java.io.File;
 
 import com.jarhax.eerieentities.config.mob.MobConfigNetherKnight;
 import com.jarhax.eerieentities.config.mob.MobConfigPumpkinSlime;
-import com.jarhax.eerieentities.entities.EntityPumpkinSlime;
 
-import net.minecraft.entity.EnumCreatureType;
 import net.minecraftforge.common.config.Configuration;
 
 public class Config {

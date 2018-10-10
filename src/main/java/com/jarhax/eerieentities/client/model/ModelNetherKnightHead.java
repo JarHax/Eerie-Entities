@@ -2,13 +2,12 @@ package com.jarhax.eerieentities.client.model;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.entity.Entity;
 
 public class ModelNetherKnightHead extends ModelBase {
     
-    private ModelRenderer head;
-    private ModelRenderer helm;
-
+    private final ModelRenderer head;
+    private final ModelRenderer helm;
+    
     public ModelNetherKnightHead() {
         
         this.textureWidth = 64;
@@ -23,7 +22,7 @@ public class ModelNetherKnightHead extends ModelBase {
         this.head.addBox(-4.0F, -4.0F, -4.0F, 8, 8, 8, 0.0F);
     }
     
-    public void render(float scale) { 
+    public void render (float scale) {
         
         this.helm.render(scale);
         this.head.render(scale);
