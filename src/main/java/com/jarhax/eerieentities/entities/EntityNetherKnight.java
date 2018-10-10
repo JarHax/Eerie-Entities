@@ -4,12 +4,15 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
+import com.jarhax.eerieentities.EerieEntities;
 import com.jarhax.eerieentities.config.Config;
 
 import net.darkhax.bookshelf.data.AttributeOperation;
 import net.darkhax.bookshelf.lib.Constants;
 import net.darkhax.bookshelf.util.MathsUtils;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityList;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -32,9 +35,8 @@ public class EntityNetherKnight extends EntityBlaze {
     private static final DataParameter<Integer> RUNE_WORD = EntityDataManager.<Integer> createKey(EntityNetherKnight.class, DataSerializers.VARINT);
     public static final char[][] WORDS = { { 68, 65, 82, 75 }, { 70, 73, 82, 69 }, { 71, 69, 71, 89 }, { 83, 65, 76, 84 }, { 67, 85, 78, 84 } };
     
-    // TODO make this configurable
-    private static final AttributeModifier BUFF_ARMOR = new AttributeModifier(UUID.fromString("cb1a4e88-69d3-4ba4-a6de-ea98bc63114f"), "knight_buff_armor", 4d, AttributeOperation.ADDITIVE.ordinal());
-    private static final AttributeModifier BUFF_HEALTH = new AttributeModifier(UUID.fromString("df154adf-523a-4523-bf02-08115e8a666f"), "knight_buff_health", 10d, AttributeOperation.ADDITIVE.ordinal());
+    private static final AttributeModifier BUFF_ARMOR = new AttributeModifier(UUID.fromString("cb1a4e88-69d3-4ba4-a6de-ea98bc63114f"), "knight_buff_armor", Config.netherKnight.getBonusArmor(), AttributeOperation.ADDITIVE.ordinal());
+    private static final AttributeModifier BUFF_HEALTH = new AttributeModifier(UUID.fromString("df154adf-523a-4523-bf02-08115e8a666f"), "knight_buff_health", Config.netherKnight.getBonusHealth(), AttributeOperation.ADDITIVE.ordinal());
     
     public EntityNetherKnight(World world) {
         
@@ -112,26 +114,34 @@ public class EntityNetherKnight extends EntityBlaze {
             }
             
             // If conditions are right, try to spawn reinforcements
-            // TODO make this configurable
-            if (target != null && MathsUtils.tryPercentage(1.00f)) {
+            if (target != null && MathsUtils.tryPercentage(Config.netherKnight.getReinforcementChance())) {
                 
                 for (int attempt = 0; attempt < 25; attempt++) {
                     
-                    final int spawnOffsetX = MathHelper.getInt(this.rand, 0, 5) * MathHelper.getInt(this.rand, -1, 1);
-                    final int spawnOffsetZ = MathHelper.getInt(this.rand, 0, 5) * MathHelper.getInt(this.rand, -1, 1);                    
+                    int[] range = Config.netherKnight.getSpawnRange();
+                    final int spawnOffsetX = MathHelper.getInt(this.rand, range[0], range[1]) * MathHelper.getInt(this.rand, -1, 1);
+                    final int spawnOffsetZ = MathHelper.getInt(this.rand, range[0], range[1]) * MathHelper.getInt(this.rand, -1, 1);                    
                     final BlockPos spawnPos = this.getPosition().add(spawnOffsetX, -1, spawnOffsetZ);
                     final IBlockState state = this.world.getBlockState(spawnPos);
                     
                     if (state != null && state.isSideSolid(this.world, spawnPos, EnumFacing.UP) && this.world.isAirBlock(spawnPos.up(2))) {
                         
-                        // TODO allow mobs to be configurable.
-                        EntityBlaze blaze = new EntityBlaze(this.world);
-                        blaze.setPositionAndUpdate(spawnPos.getX() + 0.5f, this.posY, spawnPos.getZ() + 0.5f);
-                        blaze.setAttackTarget(target);
-                        this.world.spawnEntity(blaze);
-                        blaze.getEntityAttribute(SharedMonsterAttributes.ARMOR).applyModifier(BUFF_ARMOR);
-                        blaze.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).applyModifier(BUFF_HEALTH);
-                        blaze.setHealth(blaze.getMaxHealth());
+                        try {
+                            
+                            EntityLiving reinforcement = (EntityLiving) EntityList.createEntityByIDFromName(Config.netherKnight.getReinforcementIDs()[Constants.RANDOM.nextInt(Config.netherKnight.getReinforcementIDs().length)], this.world);
+                            reinforcement.setPositionAndUpdate(spawnPos.getX() + 0.5f, this.posY, spawnPos.getZ() + 0.5f);
+                            reinforcement.setAttackTarget(target);
+                            this.world.spawnEntity(reinforcement);
+                            reinforcement.getEntityAttribute(SharedMonsterAttributes.ARMOR).applyModifier(BUFF_ARMOR);
+                            reinforcement.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).applyModifier(BUFF_HEALTH);
+                            reinforcement.setHealth(reinforcement.getMaxHealth());
+                        }
+                        
+                        catch (Exception e) {
+                            
+                            EerieEntities.LOG.catching(e);
+                        }
+                        
                         break;
                     }
                 }
