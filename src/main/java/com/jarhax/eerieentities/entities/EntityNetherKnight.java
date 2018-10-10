@@ -2,6 +2,8 @@ package com.jarhax.eerieentities.entities;
 
 import javax.annotation.Nullable;
 
+import com.jarhax.eerieentities.config.Config;
+
 import net.darkhax.bookshelf.lib.Constants;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.monster.EntityBlaze;
@@ -70,5 +72,12 @@ public class EntityNetherKnight extends EntityBlaze {
     public float getEyeHeight() {
         
         return this.height * 1.15F;
+    }
+    
+    @Override
+    public void applyEntityAttributes () {
+        
+        super.applyEntityAttributes();
+        Config.netherKnight.apply(this);
     }
 }
