@@ -36,6 +36,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -169,6 +170,12 @@ public class EntityNetherKnight extends EntityMob {
             
             this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 25));
         }       
+    }
+    
+    @Override
+    public ResourceLocation getLootTable () {
+        
+        return EerieEntities.LOOT_NETHER_KNIGHT;
     }
     
     @Override
