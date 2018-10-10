@@ -25,35 +25,35 @@ public class MobConfigNetherKnight extends MobConfig {
         
         super.syncConfig(config);
         
-        this.reinforcementChance = config.getFloat("reinforcementChance", this.getName(), 0.15f, 0f, 1f, "The chance that attacking will spawn a reinforcement.");        
+        this.reinforcementChance = config.getFloat("reinforcementChance", this.getName(), 0.15f, 0f, 1f, "The chance that attacking will spawn a reinforcement.");
         this.bonusArmor = config.getDouble("reinforcementArmorBonus", this.getName(), 5d, 0d, 1024d, "The amount of bonus armor to give reinforcement mobs.");
         this.bonusHealth = config.getDouble("reinforcementHealthBonus", this.getName(), 10d, 0d, 1024d, "The amount of bonus health to give reinforcement mobs.");
         this.spawnRange = config.getRange("ReinforcementSpawnRange", this.getName(), 0, 5, 0, 512, "the reinforcement spawn range.");
-        this.reinforcementIDs = config.getResourceLocationList("reinforcementIDs", this.getName(), new String[] {"minecraft:wither_skeleton", "minecraft:blaze"}, "List of mob IDs that can spawn as reinforcements.");
+        this.reinforcementIDs = config.getResourceLocationList("reinforcementIDs", this.getName(), new String[] { "minecraft:wither_skeleton", "minecraft:blaze" }, "List of mob IDs that can spawn as reinforcements.");
     }
-
+    
     public float getReinforcementChance () {
         
-        return reinforcementChance;
+        return this.reinforcementChance;
     }
-
+    
     public double getBonusArmor () {
         
-        return bonusArmor;
+        return this.bonusArmor;
     }
-
+    
     public double getBonusHealth () {
         
-        return bonusHealth;
+        return this.bonusHealth;
     }
-
+    
     public int[] getSpawnRange () {
         
-        return spawnRange;
+        return this.spawnRange;
     }
-
+    
     public ResourceLocation[] getReinforcementIDs () {
         
-        return reinforcementIDs;
+        return this.reinforcementIDs;
     }
 }

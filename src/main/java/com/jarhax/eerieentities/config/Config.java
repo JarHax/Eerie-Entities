@@ -1,7 +1,5 @@
 package com.jarhax.eerieentities.config;
 
-import java.io.File;
-
 import com.jarhax.eerieentities.Configuration;
 import com.jarhax.eerieentities.config.mob.MobConfigNetherKnight;
 import com.jarhax.eerieentities.config.mob.MobConfigPumpkinSlime;
