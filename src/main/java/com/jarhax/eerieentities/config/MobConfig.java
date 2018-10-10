@@ -7,6 +7,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+import com.jarhax.eerieentities.Configuration;
+
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureType;
@@ -18,7 +20,6 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biome.SpawnListEntry;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
-import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
@@ -137,10 +138,10 @@ public class MobConfig {
     public void syncConfig (Configuration config) {
         
         config.setCategoryComment(this.name, "Options for the " + this.name + " mob.");
-        this.maxHealth = config.getFloat("health", this.name, (float) this.maxHealthDefault, 0f, 1024f, "The maximum health for this mob.");
-        this.speed = config.getFloat("speed", this.name, (float) this.speedDefault, 0f, 1024f, "The general movement speed for this mob.");
-        this.armor = config.getFloat("armor", this.name, (float) this.armorDefault, 0f, 1024f, "The amount of armor protection this mob has by defualt.");
-        this.attack = config.getFloat("attack", this.name, (float) this.attackDefault, 0f, 1034f, "The base amount of attack damage for this mob.");
+        this.maxHealth = config.getDouble("health", this.name, this.maxHealthDefault, 0d, 1024d, "The maximum health for this mob.");
+        this.speed = config.getDouble("speed", this.name, this.speedDefault, 0d, 1024d, "The general movement speed for this mob.");
+        this.armor = config.getDouble("armor", this.name, this.armorDefault, 0d, 1024d, "The amount of armor protection this mob has by defualt.");
+        this.attack = config.getDouble("attack", this.name, this.attackDefault, 0d, 1034d, "The base amount of attack damage for this mob.");
         
         this.maxInChunk = config.getInt("maxInChunk", this.name, this.maxInChunkDefault, 0, 1024, "The maximum amount of this mob to spawn in one chunk.");
         this.minPackSize = config.getInt("minPackSize", this.name, this.minPackSizeDefault, 1, 128, "The minimum amount to spawn in one pack.");

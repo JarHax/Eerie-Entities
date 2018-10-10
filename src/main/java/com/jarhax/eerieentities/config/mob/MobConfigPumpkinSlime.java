@@ -1,10 +1,10 @@
 package com.jarhax.eerieentities.config.mob;
 
+import com.jarhax.eerieentities.Configuration;
 import com.jarhax.eerieentities.config.MobConfig;
 import com.jarhax.eerieentities.entities.EntityPumpkinSlime;
 
 import net.minecraft.entity.EnumCreatureType;
-import net.minecraftforge.common.config.Configuration;
 
 public class MobConfigPumpkinSlime extends MobConfig {
     

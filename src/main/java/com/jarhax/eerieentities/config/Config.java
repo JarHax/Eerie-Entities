@@ -2,14 +2,13 @@ package com.jarhax.eerieentities.config;
 
 import java.io.File;
 
+import com.jarhax.eerieentities.Configuration;
 import com.jarhax.eerieentities.config.mob.MobConfigNetherKnight;
 import com.jarhax.eerieentities.config.mob.MobConfigPumpkinSlime;
 
-import net.minecraftforge.common.config.Configuration;
-
 public class Config {
     
-    public static Configuration cfg = new Configuration(new File("config/eerieentities.cfg"));
+    public static Configuration cfg = new Configuration("eerieentities");
     
     // TODO add wisp config
     public static MobConfigPumpkinSlime pumpkinSlime = new MobConfigPumpkinSlime(10d, 0.4d, 0d, 4d, 4, 1, 1, 5, "type=MAGICAL", "type=FOREST", "type=PLAINS");
