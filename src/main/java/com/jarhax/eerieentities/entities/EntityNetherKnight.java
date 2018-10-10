@@ -16,21 +16,33 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIAttackMelee;
+import net.minecraft.entity.ai.EntityAIHurtByTarget;
+import net.minecraft.entity.ai.EntityAILookIdle;
+import net.minecraft.entity.ai.EntityAIMoveTowardsRestriction;
+import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
+import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
+import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.monster.EntityBlaze;
-import net.minecraft.init.Blocks;
+import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
-public class EntityNetherKnight extends EntityBlaze {
+public class EntityNetherKnight extends EntityMob {
     
     private static final DataParameter<Integer> RUNE_WORD = EntityDataManager.<Integer> createKey(EntityNetherKnight.class, DataSerializers.VARINT);
     public static final char[][] WORDS = { { 68, 65, 82, 75 }, { 70, 73, 82, 69 }, { 71, 69, 71, 89 }, { 83, 65, 76, 84 }, { 67, 85, 78, 84 } };
@@ -41,6 +53,8 @@ public class EntityNetherKnight extends EntityBlaze {
     public EntityNetherKnight(World world) {
         
         super(world);
+        this.isImmuneToFire = true;
+        this.experienceValue = 350;
     }
     
     public int getRuneWord () {
@@ -52,7 +66,7 @@ public class EntityNetherKnight extends EntityBlaze {
         
         this.dataManager.set(RUNE_WORD, value);
     }
-       
+    
     public char getRune (int index) {
         
         return index >= 0 && index < 4 ? WORDS[this.getRuneWord()][index] : 'X';
@@ -88,7 +102,7 @@ public class EntityNetherKnight extends EntityBlaze {
     }
     
     @Override
-    public float getEyeHeight() {
+    public float getEyeHeight () {
         
         return this.height * 1.15F;
     }
@@ -101,7 +115,76 @@ public class EntityNetherKnight extends EntityBlaze {
     }
     
     @Override
-    public boolean attackEntityFrom(DamageSource source, float amount) {
+    protected void initEntityAI () {
+        
+        this.tasks.addTask(2, new EntityAIAttackMelee(this, 1.0D, false));
+        this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 1.0D));
+        this.tasks.addTask(7, new EntityAIWanderAvoidWater(this, 1.0D));
+        this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+        this.tasks.addTask(8, new EntityAILookIdle(this));
+        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
+        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
+    }
+    
+    @Override
+    protected SoundEvent getAmbientSound () {
+        
+        return SoundEvents.ENTITY_BLAZE_AMBIENT;
+    }
+    
+    @Override
+    protected SoundEvent getHurtSound (DamageSource damageSourceIn) {
+        
+        return SoundEvents.ENTITY_BLAZE_HURT;
+    }
+    
+    @Override
+    protected SoundEvent getDeathSound () {
+        
+        return SoundEvents.ENTITY_BLAZE_DEATH;
+    }
+    
+    @Override
+    public void onLivingUpdate () {
+        
+        if (this.world.isRemote) {
+            
+            if (this.rand.nextInt(24) == 0 && !this.isSilent()) {
+                
+                this.world.playSound(this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, SoundEvents.ENTITY_BLAZE_BURN, this.getSoundCategory(), 1.0F + this.rand.nextFloat(), this.rand.nextFloat() * 0.7F + 0.3F, false);
+            }
+            
+            for (int i = 0; i < 2; ++i) {
+                this.world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, this.posX + (this.rand.nextDouble() - 0.5D) * this.width, this.posY + this.rand.nextDouble() * this.height, this.posZ + (this.rand.nextDouble() - 0.5D) * this.width, 0.0D, 0.0D, 0.0D);
+            }
+        }
+        
+        super.onLivingUpdate();
+    }
+    
+    @Override
+    protected void updateAITasks () {
+        
+        if (this.isWet()) {
+            
+            this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 25));
+        }       
+    }
+    
+    @Override
+    public void fall (float distance, float damageMultiplier) {
+        
+        // no fall damage
+    }
+    
+    @Override
+    protected boolean isValidLightLevel () {
+        
+        return true;
+    }
+    
+    @Override
+    public boolean attackEntityFrom (DamageSource source, float amount) {
         
         if (super.attackEntityFrom(source, amount)) {
             
@@ -118,9 +201,9 @@ public class EntityNetherKnight extends EntityBlaze {
                 
                 for (int attempt = 0; attempt < 25; attempt++) {
                     
-                    int[] range = Config.netherKnight.getSpawnRange();
+                    final int[] range = Config.netherKnight.getSpawnRange();
                     final int spawnOffsetX = MathHelper.getInt(this.rand, range[0], range[1]) * MathHelper.getInt(this.rand, -1, 1);
-                    final int spawnOffsetZ = MathHelper.getInt(this.rand, range[0], range[1]) * MathHelper.getInt(this.rand, -1, 1);                    
+                    final int spawnOffsetZ = MathHelper.getInt(this.rand, range[0], range[1]) * MathHelper.getInt(this.rand, -1, 1);
                     final BlockPos spawnPos = this.getPosition().add(spawnOffsetX, -1, spawnOffsetZ);
                     final IBlockState state = this.world.getBlockState(spawnPos);
                     
@@ -128,7 +211,7 @@ public class EntityNetherKnight extends EntityBlaze {
                         
                         try {
                             
-                            EntityLiving reinforcement = (EntityLiving) EntityList.createEntityByIDFromName(Config.netherKnight.getReinforcementIDs()[Constants.RANDOM.nextInt(Config.netherKnight.getReinforcementIDs().length)], this.world);
+                            final EntityLiving reinforcement = (EntityLiving) EntityList.createEntityByIDFromName(Config.netherKnight.getReinforcementIDs()[Constants.RANDOM.nextInt(Config.netherKnight.getReinforcementIDs().length)], this.world);
                             reinforcement.setPositionAndUpdate(spawnPos.getX() + 0.5f, this.posY, spawnPos.getZ() + 0.5f);
                             reinforcement.setAttackTarget(target);
                             this.world.spawnEntity(reinforcement);
@@ -137,7 +220,7 @@ public class EntityNetherKnight extends EntityBlaze {
                             reinforcement.setHealth(reinforcement.getMaxHealth());
                         }
                         
-                        catch (Exception e) {
+                        catch (final Exception e) {
                             
                             EerieEntities.LOG.catching(e);
                         }
