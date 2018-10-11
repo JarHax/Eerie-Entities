@@ -1,5 +1,7 @@
 package com.jarhax.eerieentities;
 
+import com.jarhax.eerieentities.block.BlockCarvedPumpkin;
+import com.jarhax.eerieentities.block.BlockCarvedPumpkin.PumpkinType;
 import com.jarhax.eerieentities.client.ClientEvents;
 import com.jarhax.eerieentities.client.ShaderHandler;
 import com.jarhax.eerieentities.client.gui.FontRendererRunelic;
@@ -14,7 +16,12 @@ import com.jarhax.eerieentities.entities.EntityWisp;
 import net.darkhax.bookshelf.lib.LoggingHelper;
 import net.darkhax.bookshelf.network.NetworkHandler;
 import net.darkhax.bookshelf.registry.RegistryHelper;
+import net.minecraft.block.Block;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
@@ -39,6 +46,7 @@ public class EerieEntities {
     public static final ResourceLocation LOOT_WISP = REGISTRY.registerLootTable("entities/wisp");
     public static final ResourceLocation LOOT_PUMPKIN_SLIME = REGISTRY.registerLootTable("entities/pumpkin_slime");
     public static final ResourceLocation LOOT_NETHER_KNIGHT = REGISTRY.registerLootTable("entities/nether_knight");
+    
     public static FontRenderer fontRunelic;
     
     @EventHandler
@@ -49,6 +57,29 @@ public class EerieEntities {
         REGISTRY.registerMob(EntityWisp.class, "wisp", 0, 0x00ffff, 0x33ccff);
         REGISTRY.registerMob(EntityPumpkinSlime.class, "pumpkin_slime", 1, 0xB67317, 0x804809);
         REGISTRY.registerMob(EntityNetherKnight.class, "nether_knight", 2, 16775294, 16167425);
+        
+        for (BlockCarvedPumpkin.PumpkinType type : PumpkinType.values()) {
+            
+            if (type != PumpkinType.NORMAL) {
+                
+                final String name = type.name().toLowerCase();
+                Block normal = new BlockCarvedPumpkin();
+                ItemBlock itemNormal = new ItemBlock(normal);
+                REGISTRY.registerBlock(normal, itemNormal, "pumpkin_" + name);
+                normal.setLightLevel(1f);
+                normal.setTranslationKey("pumpkin");
+                
+                Block lit = new BlockCarvedPumpkin();
+                ItemBlock itemLit = new ItemBlock(lit);
+                REGISTRY.registerBlock(lit, itemLit, "pumpkin_lit_" + name);
+                lit.setTranslationKey("litpumpkin");
+                
+                type.setItems(itemNormal, itemLit);
+                
+                REGISTRY.addShapelessRecipe("light_pumpkin_" + name, new ItemStack(itemLit), new ItemStack(itemNormal), "torch");
+                REGISTRY.addShapelessRecipe("pumpkin_seeds_" + name, new ItemStack(Items.PUMPKIN_SEEDS, 4), new ItemStack(itemNormal));
+            }
+        }
     }
     
     @EventHandler

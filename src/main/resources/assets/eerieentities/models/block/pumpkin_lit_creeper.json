@@ -1,0 +1,8 @@
+{
+    "parent": "block/orientable",
+    "textures": {
+        "top": "blocks/pumpkin_top",
+        "front": "eerieentities:blocks/pumpkin_lit_creeper",
+        "side": "blocks/pumpkin_side"
+    }
+}

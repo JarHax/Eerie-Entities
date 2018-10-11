@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "facing=north": { "model": "eerieentities:pumpkin_lit_rawr" },
+        "facing=south": { "model": "eerieentities:pumpkin_lit_rawr", "y": 180 },
+        "facing=west":  { "model": "eerieentities:pumpkin_lit_rawr", "y": 270 },
+        "facing=east":  { "model": "eerieentities:pumpkin_lit_rawr", "y": 90 }
+    }
+}
