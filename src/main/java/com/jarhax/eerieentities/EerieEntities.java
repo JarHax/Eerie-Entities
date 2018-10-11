@@ -47,7 +47,8 @@ public class EerieEntities {
     public static final ResourceLocation LOOT_WISP = REGISTRY.registerLootTable("entities/wisp");
     public static final ResourceLocation LOOT_PUMPKIN_SLIME = REGISTRY.registerLootTable("entities/pumpkin_slime");
     public static final ResourceLocation LOOT_NETHER_KNIGHT = REGISTRY.registerLootTable("entities/nether_knight");
-    
+    public static final ResourceLocation LOOT_CURSED_ARMOR = REGISTRY.registerLootTable("entities/cursed_armor");
+
     public static FontRenderer fontRunelic;
     
     @EventHandler
