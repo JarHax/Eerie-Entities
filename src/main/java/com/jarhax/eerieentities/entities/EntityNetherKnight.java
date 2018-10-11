@@ -55,7 +55,6 @@ public class EntityNetherKnight extends EntityMob {
         
         super(world);
         this.isImmuneToFire = true;
-        this.experienceValue = 350;
     }
     
     public int getRuneWord () {
@@ -113,6 +112,7 @@ public class EntityNetherKnight extends EntityMob {
         
         super.applyEntityAttributes();
         Config.netherKnight.apply(this);
+        this.experienceValue = Config.netherKnight.getBaseEXP();
     }
     
     @Override

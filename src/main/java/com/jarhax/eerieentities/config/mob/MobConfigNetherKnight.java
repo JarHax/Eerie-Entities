@@ -15,9 +15,9 @@ public class MobConfigNetherKnight extends MobConfig {
     private int[] spawnRange;
     private ResourceLocation[] reinforcementIDs;
     
-    public MobConfigNetherKnight(double maxHealthDefault, double speedDefault, double armorDefault, double attackDefault, int maxInChunkDefault, int minPackSizeDefault, int maxPackSizeDefault, int spawnWeightDefault, String... biomesDefault) {
+    public MobConfigNetherKnight(double maxHealthDefault, double speedDefault, double armorDefault, double attackDefault, int maxInChunkDefault, int minPackSizeDefault, int maxPackSizeDefault, int spawnWeightDefault, int baseEXPDefault, String... biomesDefault) {
         
-        super("nether_knight", EntityNetherKnight.class, EnumCreatureType.MONSTER, maxHealthDefault, speedDefault, armorDefault, attackDefault, maxInChunkDefault, minPackSizeDefault, maxPackSizeDefault, spawnWeightDefault, biomesDefault);
+        super("nether_knight", EntityNetherKnight.class, EnumCreatureType.MONSTER, maxHealthDefault, speedDefault, armorDefault, attackDefault, maxInChunkDefault, minPackSizeDefault, maxPackSizeDefault, spawnWeightDefault, baseEXPDefault, biomesDefault);
     }
     
     @Override

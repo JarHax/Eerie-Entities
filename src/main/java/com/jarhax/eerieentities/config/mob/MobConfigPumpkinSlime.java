@@ -13,9 +13,9 @@ public class MobConfigPumpkinSlime extends MobConfig {
     private boolean dieInSunlight;
     private float solidifyChance;
     
-    public MobConfigPumpkinSlime(double maxHealthDefault, double speedDefault, double armorDefault, double attackDefault, int maxInChunkDefault, int minPackSizeDefault, int maxPackSizeDefault, int spawnWeightDefault, String... biomesDefault) {
+    public MobConfigPumpkinSlime(double maxHealthDefault, double speedDefault, double armorDefault, double attackDefault, int maxInChunkDefault, int minPackSizeDefault, int maxPackSizeDefault, int spawnWeightDefault, int baseEXPDefault, String... biomesDefault) {
         
-        super("pumpkin_slime", EntityPumpkinSlime.class, EnumCreatureType.MONSTER, maxHealthDefault, speedDefault, armorDefault, attackDefault, maxInChunkDefault, minPackSizeDefault, maxPackSizeDefault, spawnWeightDefault, biomesDefault);
+        super("pumpkin_slime", EntityPumpkinSlime.class, EnumCreatureType.MONSTER, maxHealthDefault, speedDefault, armorDefault, attackDefault, maxInChunkDefault, minPackSizeDefault, maxPackSizeDefault, spawnWeightDefault, baseEXPDefault, biomesDefault);
     }
     
     @Override

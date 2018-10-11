@@ -40,6 +40,7 @@ public class MobConfig {
     private final int minPackSizeDefault;
     private final int maxPackSizeDefault;
     private final int spawnWeightDefault;
+    private final int baseEXPDefault;
     private final String[] biomesDefault;
     
     private double maxHealth;
@@ -50,9 +51,10 @@ public class MobConfig {
     private int minPackSize;
     private int maxPackSize;
     private int spawnWeight;
+    private int baseEXP;
     private String[] biomes;
     
-    public MobConfig(String name, Class<? extends EntityLiving> entClass, EnumCreatureType mobType, double maxHealthDefault, double speedDefault, double armorDefault, double attackDefault, int maxInChunkDefault, int minPackSizeDefault, int maxPackSizeDefault, int spawnWeightDefault, String... biomesDefault) {
+    public MobConfig(String name, Class<? extends EntityLiving> entClass, EnumCreatureType mobType, double maxHealthDefault, double speedDefault, double armorDefault, double attackDefault, int maxInChunkDefault, int minPackSizeDefault, int maxPackSizeDefault, int spawnWeightDefault, int baseEXPDefault, String... biomesDefault) {
         
         this.name = name;
         this.entClass = entClass;
@@ -66,6 +68,7 @@ public class MobConfig {
         this.minPackSizeDefault = minPackSizeDefault;
         this.maxPackSizeDefault = maxPackSizeDefault;
         this.spawnWeightDefault = spawnWeightDefault;
+        this.baseEXPDefault = baseEXPDefault;
         this.biomesDefault = biomesDefault;
         
         mobConfigs.add(this);
@@ -147,7 +150,7 @@ public class MobConfig {
         this.minPackSize = config.getInt("minPackSize", this.name, this.minPackSizeDefault, 1, 128, "The minimum amount to spawn in one pack.");
         this.maxPackSize = config.getInt("maxPackSize", this.name, this.maxPackSizeDefault, 1, 128, "The maximum amount to spawn in one pack.");
         this.spawnWeight = config.getInt("spawnWeight", this.name, this.spawnWeightDefault, 0, 1024, "The spawning weight of this mob.");
-        
+        this.baseEXP = config.getInt("baseExperience", this.name, this.baseEXPDefault, 0, Integer.MAX_VALUE / 2, "The base amount of experience for the mob to drop.");
         this.biomes = config.getStringList("biomes", this.name, this.biomesDefault, "The biomes this mob can spawn in. Use biome ID such as minecraft:ocean for specific biomes, and type=TYPE for biome dict support.");
     }
     
@@ -194,5 +197,10 @@ public class MobConfig {
     public int getSpawnWeight () {
         
         return this.spawnWeight;
+    }
+
+    public int getBaseEXP () {
+        
+        return baseEXP;
     }
 }

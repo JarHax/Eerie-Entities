@@ -56,16 +56,11 @@ public class EntityCursedArmor extends EntityMob {
     }
     
     @Override
-    public void entityInit () {
-        
-        super.entityInit();
-    }
-    
-    @Override
     public void applyEntityAttributes () {
         
         super.applyEntityAttributes();
         Config.cursedArmor.apply(this);
+        this.experienceValue = Config.cursedArmor.getBaseEXP();
     }
     
     @Override

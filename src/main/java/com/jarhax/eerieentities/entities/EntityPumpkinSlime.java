@@ -98,6 +98,7 @@ public class EntityPumpkinSlime extends EntitySlime implements IEntityOwnable {
         
         super.applyEntityAttributes();
         Config.pumpkinSlime.apply(this);
+        this.experienceValue = Config.pumpkinSlime.getBaseEXP();
     }
     
     @Override

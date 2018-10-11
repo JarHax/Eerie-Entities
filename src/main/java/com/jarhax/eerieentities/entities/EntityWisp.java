@@ -26,6 +26,7 @@ public class EntityWisp extends EntityLiving {
         
         super.applyEntityAttributes();
         Config.wisp.apply(this);
+        this.experienceValue = Config.wisp.getBaseEXP();
     }
     
     @Override
