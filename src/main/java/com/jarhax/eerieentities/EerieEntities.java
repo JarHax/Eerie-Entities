@@ -74,7 +74,7 @@ public class EerieEntities {
                 lit.setTranslationKey("litpumpkin");
                 lit.setLightLevel(1f);
                 
-                type.setItems(itemNormal, itemLit);
+                type.setItems(normal, lit);
                 
                 REGISTRY.addShapelessRecipe("light_pumpkin_" + name, new ItemStack(itemLit), new ItemStack(itemNormal), "torch");
                 REGISTRY.addShapelessRecipe("pumpkin_seeds_" + name, new ItemStack(Items.PUMPKIN_SEEDS, 4), new ItemStack(itemNormal));

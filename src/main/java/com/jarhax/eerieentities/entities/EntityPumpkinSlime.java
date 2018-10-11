@@ -6,6 +6,8 @@ import javax.annotation.Nullable;
 
 import com.google.common.base.Optional;
 import com.jarhax.eerieentities.EerieEntities;
+import com.jarhax.eerieentities.block.BlockCarvedPumpkin;
+import com.jarhax.eerieentities.block.BlockCarvedPumpkin.PumpkinType;
 import com.jarhax.eerieentities.config.Config;
 
 import net.darkhax.bookshelf.lib.Constants;
@@ -78,6 +80,11 @@ public class EntityPumpkinSlime extends EntitySlime implements IEntityOwnable {
         return this.dataManager.get(IS_BLOCK).booleanValue();
     }
     
+    public PumpkinType getPumpkinType() {
+        
+        return PumpkinType.values()[this.getType()];
+    }
+    
     @Override
     public void entityInit () {
         
@@ -123,7 +130,8 @@ public class EntityPumpkinSlime extends EntitySlime implements IEntityOwnable {
                 
                 // Slime has a chance to turn into a real pumpkin.
                 if (MathsUtils.tryPercentage(Config.pumpkinSlime.getSolidifyChance())) {
-                    this.world.setBlockState(this.getPosition(), Blocks.PUMPKIN.getDefaultState().withProperty(BlockHorizontal.FACING, this.getHorizontalFacing()));
+                    
+                    this.world.setBlockState(this.getPosition(), this.getPumpkinType().getNormal().getDefaultState().withProperty(BlockHorizontal.FACING, this.getHorizontalFacing()));
                 }
                 
                 this.setDead();

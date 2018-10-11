@@ -13,28 +13,28 @@ public class BlockCarvedPumpkin extends BlockPumpkin {
     
     public static enum PumpkinType {
         
-        NORMAL(Item.getItemFromBlock(Blocks.PUMPKIN), Item.getItemFromBlock(Blocks.LIT_PUMPKIN)),
+        NORMAL(Blocks.PUMPKIN, Blocks.LIT_PUMPKIN),
         CREEPER,
         OWO,
         RAWR,
         CYCLOPS,
         SURPRISED;
         
-        private Item normal;
-        private Item lit;
+        private Block normal;
+        private Block lit;
         
         PumpkinType() {
             
             this(null, null);
         }
         
-        PumpkinType(Item normal, Item lit) {
+        PumpkinType(Block normal, Block lit) {
             
             this.normal = normal;
             this.lit = lit;
         }
         
-        public void setItems(Item normal, Item lit) {
+        public void setItems(Block normal, Block lit) {
             
             if (this != NORMAL) {
                 
@@ -43,12 +43,12 @@ public class BlockCarvedPumpkin extends BlockPumpkin {
             }
         }
 
-        public Item getNormal () {
+        public Block getNormal () {
             
             return normal;
         }
 
-        public Item getLit () {
+        public Block getLit () {
             
             return lit;
         }
