@@ -1,6 +1,7 @@
 package com.jarhax.eerieentities.entities;
 
 import com.jarhax.eerieentities.EerieEntities;
+import com.jarhax.eerieentities.config.Config;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -18,6 +19,19 @@ public class EntityWisp extends EntityLiving {
         
         super(worldIn);
         this.setSize(1, 1f);
+    }
+    
+    @Override
+    public void applyEntityAttributes () {
+        
+        super.applyEntityAttributes();
+        Config.wisp.apply(this);
+    }
+    
+    @Override
+    public int getMaxSpawnedInChunk () {
+        
+        return Config.wisp.getMaxInChunk();
     }
     
     @Override
