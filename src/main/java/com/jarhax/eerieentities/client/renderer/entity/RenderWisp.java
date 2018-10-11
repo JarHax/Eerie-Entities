@@ -1,22 +1,16 @@
 package com.jarhax.eerieentities.client.renderer.entity;
 
-import java.util.HashMap;
-
-import javax.annotation.Nullable;
-
-import org.lwjgl.opengl.GL11;
-
 import com.jarhax.eerieentities.EerieEntities;
 import com.jarhax.eerieentities.client.ShaderHandler;
 import com.jarhax.eerieentities.entities.EntityWisp;
-
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
+
+import javax.annotation.Nullable;
+import java.util.HashMap;
 
 public class RenderWisp extends Render<EntityWisp> {
     
@@ -27,13 +21,13 @@ public class RenderWisp extends Render<EntityWisp> {
     
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture (EntityWisp entity) {
+    protected ResourceLocation getEntityTexture(EntityWisp entity) {
         
         return new ResourceLocation(EerieEntities.MODID, "textures/entity/wisp.png");
     }
     
     @Override
-    public void doRender (EntityWisp entity, double x, double y, double z, float entityYaw, float partialTicks) {
+    public void doRender(EntityWisp entity, double x, double y, double z, float entityYaw, float partialTicks) {
         
         GlStateManager.pushMatrix();
         GlStateManager.translate((float) x, (float) y, (float) z);
@@ -53,11 +47,34 @@ public class RenderWisp extends Render<EntityWisp> {
         ShaderHandler.useShader(ShaderHandler.WISP, data);
         final Tessellator tessellator = Tessellator.getInstance();
         final BufferBuilder bufferbuilder = tessellator.getBuffer();
+        
+        float red = 0;
+        float green = 0;
+        float blue = 0;
+        float alpha = 1;
+        
+        switch(entity.getType()) {
+            case 0:
+                green = 1;
+                blue = 1;
+                break;
+            case 1:
+                red = 1;
+                blue = 1;
+                break;
+            case 2:
+                red = 1;
+                green = 1;
+                break;
+            case 3:
+                green = 1;
+                break;
+        }
         bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR_NORMAL);
-        bufferbuilder.pos(-width, -width, 0).tex(0, 1).color(0f, 1f, 1f, 1f).normal(0.0F, 1.0F, 0.0F).endVertex();
-        bufferbuilder.pos(width, -width, 0).tex(1, 1).color(0f, 1f, 1f, 1f).normal(0.0F, 1.0F, 0.0F).endVertex();
-        bufferbuilder.pos(width, width, 0).tex(1, 0).color(0f, 1f, 1f, 1f).normal(0.0F, 1.0F, 0.0F).endVertex();
-        bufferbuilder.pos(-width, width, 0).tex(0, 0).color(0f, 1f, 1f, 1f).normal(0.0F, 1.0F, 0.0F).endVertex();
+        bufferbuilder.pos(-width, -width, 0).tex(0, 1).color(red, green, blue, alpha).normal(0.0F, 1.0F, 0.0F).endVertex();
+        bufferbuilder.pos(width, -width, 0).tex(1, 1).color(red, green, blue, alpha).normal(0.0F, 1.0F, 0.0F).endVertex();
+        bufferbuilder.pos(width, width, 0).tex(1, 0).color(red, green, blue, alpha).normal(0.0F, 1.0F, 0.0F).endVertex();
+        bufferbuilder.pos(-width, width, 0).tex(0, 0).color(red, green, blue, alpha).normal(0.0F, 1.0F, 0.0F).endVertex();
         tessellator.draw();
         ShaderHandler.releaseShader();
         GlStateManager.disableBlend();
