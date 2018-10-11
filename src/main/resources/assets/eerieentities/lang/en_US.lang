@@ -1,6 +1,7 @@
 #Entities
 entity.eerieentities.wisp.name=Will-O'-Wisp
 entity.eerieentities.pumpkin_slime.name=Pumpkin Slime
+entity.eerieentities.nether_knight.name=Nether Knight
 
 #Misc
 itemGroup.eerieentities=Eerie Entities
