@@ -64,6 +64,12 @@ public class EntityCursedArmor extends EntityMob {
     }
     
     @Override
+    public int getMaxSpawnedInChunk () {
+        
+        return Config.cursedArmor.getMaxInChunk();
+    }
+    
+    @Override
     public boolean attackEntityFrom (DamageSource source, float amount) {
         
         if (this.getTotalArmorValue() > 0) {

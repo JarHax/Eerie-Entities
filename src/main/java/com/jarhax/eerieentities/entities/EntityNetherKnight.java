@@ -108,6 +108,12 @@ public class EntityNetherKnight extends EntityMob {
     }
     
     @Override
+    public int getMaxSpawnedInChunk () {
+        
+        return Config.netherKnight.getMaxInChunk();
+    }
+    
+    @Override
     public void applyEntityAttributes () {
         
         super.applyEntityAttributes();
