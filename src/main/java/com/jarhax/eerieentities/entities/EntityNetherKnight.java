@@ -169,7 +169,7 @@ public class EntityNetherKnight extends EntityMob {
         if (this.isWet()) {
             
             this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 25));
-        }       
+        }
     }
     
     @Override

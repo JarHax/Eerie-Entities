@@ -3,8 +3,6 @@ package com.jarhax.eerieentities.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPumpkin;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 
 public class BlockCarvedPumpkin extends BlockPumpkin {
     
@@ -34,7 +32,7 @@ public class BlockCarvedPumpkin extends BlockPumpkin {
             this.lit = lit;
         }
         
-        public void setItems(Block normal, Block lit) {
+        public void setItems (Block normal, Block lit) {
             
             if (this != NORMAL) {
                 
@@ -42,15 +40,15 @@ public class BlockCarvedPumpkin extends BlockPumpkin {
                 this.lit = lit;
             }
         }
-
+        
         public Block getNormal () {
             
-            return normal;
+            return this.normal;
         }
-
+        
         public Block getLit () {
             
-            return lit;
+            return this.lit;
         }
     }
 }

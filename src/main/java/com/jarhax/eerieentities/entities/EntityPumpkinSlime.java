@@ -6,7 +6,6 @@ import javax.annotation.Nullable;
 
 import com.google.common.base.Optional;
 import com.jarhax.eerieentities.EerieEntities;
-import com.jarhax.eerieentities.block.BlockCarvedPumpkin;
 import com.jarhax.eerieentities.block.BlockCarvedPumpkin.PumpkinType;
 import com.jarhax.eerieentities.config.Config;
 
@@ -80,7 +79,7 @@ public class EntityPumpkinSlime extends EntitySlime implements IEntityOwnable {
         return this.dataManager.get(IS_BLOCK).booleanValue();
     }
     
-    public PumpkinType getPumpkinType() {
+    public PumpkinType getPumpkinType () {
         
         return PumpkinType.values()[this.getType()];
     }

@@ -19,7 +19,6 @@ import net.darkhax.bookshelf.registry.RegistryHelper;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -58,18 +57,18 @@ public class EerieEntities {
         REGISTRY.registerMob(EntityPumpkinSlime.class, "pumpkin_slime", 1, 0xB67317, 0x804809);
         REGISTRY.registerMob(EntityNetherKnight.class, "nether_knight", 2, 16775294, 16167425);
         
-        for (BlockCarvedPumpkin.PumpkinType type : PumpkinType.values()) {
+        for (final BlockCarvedPumpkin.PumpkinType type : PumpkinType.values()) {
             
             if (type != PumpkinType.NORMAL) {
                 
                 final String name = type.name().toLowerCase();
-                Block normal = new BlockCarvedPumpkin();
-                ItemBlock itemNormal = new ItemBlock(normal);
+                final Block normal = new BlockCarvedPumpkin();
+                final ItemBlock itemNormal = new ItemBlock(normal);
                 REGISTRY.registerBlock(normal, itemNormal, "pumpkin_" + name);
                 normal.setTranslationKey("pumpkin");
                 
-                Block lit = new BlockCarvedPumpkin();
-                ItemBlock itemLit = new ItemBlock(lit);
+                final Block lit = new BlockCarvedPumpkin();
+                final ItemBlock itemLit = new ItemBlock(lit);
                 REGISTRY.registerBlock(lit, itemLit, "pumpkin_lit_" + name);
                 lit.setTranslationKey("litpumpkin");
                 lit.setLightLevel(1f);

@@ -33,7 +33,7 @@ public class CreativeTabEerieEntites extends CreativeTabs {
             ItemMonsterPlacer.applyEntityIdToItemStack(spawner, id);
             itemList.add(spawner);
         }
-                
+        
         super.displayAllRelevantItems(itemList);
     }
 }
