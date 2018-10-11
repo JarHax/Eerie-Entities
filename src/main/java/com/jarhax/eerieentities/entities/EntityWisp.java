@@ -3,17 +3,22 @@ package com.jarhax.eerieentities.entities;
 import com.jarhax.eerieentities.EerieEntities;
 import com.jarhax.eerieentities.config.Config;
 
+import net.darkhax.bookshelf.lib.Constants;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.*;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.World;
+import net.minecraft.world.*;
+
+import javax.annotation.Nullable;
 
 public class EntityWisp extends EntityLiving {
-     
+    
     private BlockPos spawnPosition;
+    private static final DataParameter<Integer> TYPE = EntityDataManager.<Integer> createKey(EntityWisp.class, DataSerializers.VARINT);
     
     public EntityWisp(World worldIn) {
         
@@ -27,6 +32,40 @@ public class EntityWisp extends EntityLiving {
         super.applyEntityAttributes();
         Config.wisp.apply(this);
         this.experienceValue = Config.wisp.getBaseEXP();
+    }
+    
+    public int getType () {
+        
+        return this.dataManager.get(TYPE).intValue();
+    }
+    
+    public void setType (int value) {
+        
+        this.dataManager.set(TYPE, value);
+    }
+    
+    @Override
+    protected void entityInit() {
+        super.entityInit();
+        this.dataManager.register(TYPE, 0);
+    }
+    @Override
+    public IEntityLivingData onInitialSpawn (DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
+        livingdata = super.onInitialSpawn(difficulty, livingdata);
+        this.setType(Constants.RANDOM.nextInt(4));
+        return livingdata;
+    }
+    
+    @Override
+    public void readEntityFromNBT(NBTTagCompound compound) {
+        super.readEntityFromNBT(compound);
+        this.setType(compound.getInteger("Type"));
+    }
+    
+    @Override
+    public void writeEntityToNBT(NBTTagCompound compound) {
+        super.writeEntityToNBT(compound);
+        compound.setInteger("Type", this.getType());
     }
     
     @Override
