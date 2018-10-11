@@ -9,8 +9,8 @@ public class ModelKnightShield extends ModelBase {
     
     public ModelKnightShield() {
         
-        this.textureWidth = 64;
-        this.textureHeight = 64;
+        this.textureWidth = 32;
+        this.textureHeight = 32;
         this.shield = new ModelRenderer(this, 0, 0);
         this.shield.setRotationPoint(0.0F, 8.0F, -10.0F);
         this.shield.addBox(-6.0F, -12.0F, -0.5F, 12, 24, 1, 0.0F);
