@@ -5,10 +5,12 @@ import com.jarhax.eerieentities.block.BlockCarvedPumpkin.PumpkinType;
 import com.jarhax.eerieentities.client.ClientEvents;
 import com.jarhax.eerieentities.client.ShaderHandler;
 import com.jarhax.eerieentities.client.gui.FontRendererRunelic;
+import com.jarhax.eerieentities.client.renderer.entity.RenderCursedArmor;
 import com.jarhax.eerieentities.client.renderer.entity.RenderPumpkinSlime;
 import com.jarhax.eerieentities.client.renderer.entity.RenderWisp;
 import com.jarhax.eerieentities.client.renderer.entity.knight.RenderNetherKnight;
 import com.jarhax.eerieentities.config.Config;
+import com.jarhax.eerieentities.entities.EntityCursedArmor;
 import com.jarhax.eerieentities.entities.EntityNetherKnight;
 import com.jarhax.eerieentities.entities.EntityPumpkinSlime;
 import com.jarhax.eerieentities.entities.EntityWisp;
@@ -56,6 +58,7 @@ public class EerieEntities {
         REGISTRY.registerMob(EntityWisp.class, "wisp", 0, 0x00ffff, 0x33ccff);
         REGISTRY.registerMob(EntityPumpkinSlime.class, "pumpkin_slime", 1, 0xB67317, 0x804809);
         REGISTRY.registerMob(EntityNetherKnight.class, "nether_knight", 2, 16775294, 16167425);
+        REGISTRY.registerMob(EntityCursedArmor.class, "cursed_armor", 3, 0xffffff, 0x000000);
         
         for (final BlockCarvedPumpkin.PumpkinType type : PumpkinType.values()) {
             
@@ -90,6 +93,7 @@ public class EerieEntities {
         RenderingRegistry.registerEntityRenderingHandler(EntityWisp.class, RenderWisp::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityPumpkinSlime.class, RenderPumpkinSlime::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityNetherKnight.class, RenderNetherKnight::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntityCursedArmor.class, RenderCursedArmor::new);
     }
     
     @EventHandler
