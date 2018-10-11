@@ -11,6 +11,8 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 public class EntityWisp extends EntityLiving {
+     
+    private BlockPos spawnPosition;
     
     public EntityWisp(World worldIn) {
         
@@ -24,14 +26,6 @@ public class EntityWisp extends EntityLiving {
         return EerieEntities.LOOT_WISP;
     }
     
-    private BlockPos spawnPosition;
-    
-    @Override
-    protected void entityInit () {
-        
-        super.entityInit();
-    }
-    
     @Override
     public boolean canBePushed () {
         
@@ -41,11 +35,13 @@ public class EntityWisp extends EntityLiving {
     @Override
     protected void collideWithEntity (Entity entityIn) {
         
+        // No entity collision
     }
     
     @Override
     protected void collideWithNearbyEntities () {
         
+        // No entity collision
     }
     
     @Override
@@ -79,10 +75,6 @@ public class EntityWisp extends EntityLiving {
         this.rotationYaw += f1;
     }
     
-    /**
-     * returns if this entity triggers Block.onEntityWalking on the blocks they walk on. used
-     * for spiders and wolves to prevent them from trampling crops
-     */
     @Override
     protected boolean canTriggerWalking () {
         
@@ -92,16 +84,15 @@ public class EntityWisp extends EntityLiving {
     @Override
     public void fall (float distance, float damageMultiplier) {
         
+        // No fall damage
     }
     
     @Override
     protected void updateFallState (double y, boolean onGroundIn, IBlockState state, BlockPos pos) {
         
+        // No falling
     }
     
-    /**
-     * Return whether this entity should NOT trigger a pressure plate or a tripwire.
-     */
     @Override
     public boolean doesEntityNotTriggerPressurePlate () {
         
@@ -113,5 +104,4 @@ public class EntityWisp extends EntityLiving {
         
         return this.height / 2.0F;
     }
-    
 }
