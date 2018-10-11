@@ -27,13 +27,13 @@ public class CreativeTabEerieEntites extends CreativeTabs {
     @SideOnly(Side.CLIENT)
     public void displayAllRelevantItems (NonNullList<ItemStack> itemList) {
         
-        super.displayAllRelevantItems(itemList);
-        
         for (final ResourceLocation id : EerieEntities.REGISTRY.getEntityIds()) {
             
             final ItemStack spawner = new ItemStack(Items.SPAWN_EGG);
             ItemMonsterPlacer.applyEntityIdToItemStack(spawner, id);
             itemList.add(spawner);
         }
+                
+        super.displayAllRelevantItems(itemList);
     }
 }
