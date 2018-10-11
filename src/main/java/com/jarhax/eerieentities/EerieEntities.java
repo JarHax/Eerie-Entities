@@ -66,13 +66,13 @@ public class EerieEntities {
                 Block normal = new BlockCarvedPumpkin();
                 ItemBlock itemNormal = new ItemBlock(normal);
                 REGISTRY.registerBlock(normal, itemNormal, "pumpkin_" + name);
-                normal.setLightLevel(1f);
                 normal.setTranslationKey("pumpkin");
                 
                 Block lit = new BlockCarvedPumpkin();
                 ItemBlock itemLit = new ItemBlock(lit);
                 REGISTRY.registerBlock(lit, itemLit, "pumpkin_lit_" + name);
                 lit.setTranslationKey("litpumpkin");
+                lit.setLightLevel(1f);
                 
                 type.setItems(itemNormal, itemLit);
                 
