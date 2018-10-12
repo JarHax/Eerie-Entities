@@ -83,6 +83,7 @@ public class RenderWisp extends Render<EntityWisp> {
         bufferbuilder.pos(-width, width, 0).tex(0, 0).color(red, green, blue, alpha).normal(0.0F, 1.0F, 0.0F).endVertex();
         tessellator.draw();
         ShaderHandler.releaseShader();
+        GlStateManager.blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
         GlStateManager.disableBlend();
         GlStateManager.depthMask(true);
         GlStateManager.disableRescaleNormal();
