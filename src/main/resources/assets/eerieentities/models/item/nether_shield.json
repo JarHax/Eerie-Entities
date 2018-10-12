@@ -1,0 +1,78 @@
+{
+		"display": {
+		"thirdperson_righthand": {
+			"rotation": [0, 90, 0],
+			"translation": [10.51, 6, -4],
+			"scale": [1, 1, 1]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [0, 90, 0],
+			"translation": [10.51, 6, 12],
+			"scale": [1, 1, 1]
+		},
+		"firstperson_righthand": {
+			"rotation": [0, 180, 5],
+			"translation": [-10, 2, -10],
+			"scale": [1.25, 1.25, 1.25]
+		},
+		"firstperson_lefthand": {
+			"rotation": [0, 180, 5],
+			"translation": [10, 0, -10],
+			"scale": [1.25, 1.25, 1.25]
+		},
+		"gui": {
+			"rotation": [15, -25, -5],
+			"translation": [2, 3, 0],
+			"scale": [0.65, 0.65, 0.65]
+		},
+		"fixed": {
+			"rotation": [0, 180, 0],
+			"translation": [-2, 4, -5],
+			"scale": [0.5, 0.5, 0.5]
+		},
+		"ground": {
+			"rotation": [0, 0, 0],
+			"translation": [4, 4, 2],
+			"scale": [0.25, 0.25, 0.25]
+		}
+	},
+	"textures": {
+		"0": "eerieentities:entity/nether_knight/nether_knight"
+	},
+	"overrides": [{
+		"predicate": {
+			"blocking": 1
+		},
+		"model": "eerieentities:item/nether_shield_blocking"
+	}],
+	"elements": [{
+		"from": [-6, -11, 1],
+		"to": [6, 11, 2],
+		"faces": {
+			"down": {
+				"uv": [0.5, 0, 6.5, 0.5],
+				"texture": "#0"
+			},
+			"up": {
+				"uv": [0.5, 0, 6.5, 0.5],
+				"texture": "#0"
+			},
+			"north": {
+				"uv": [0.5, 0, 6.5, 12.5],
+				"texture": "#0"
+			},
+			"south": {
+				"uv": [0.5, 0, 6.5, 12.5],
+				"texture": "#0"
+			},
+			"west": {
+				"uv": [0, 0.5, 0.5, 11.5],
+				"texture": "#0"
+			},
+			"east": {
+				"uv": [0, 0.5, 0.5, 11.5],
+				"texture": "#0"
+			}
+		}
+	}]
+}

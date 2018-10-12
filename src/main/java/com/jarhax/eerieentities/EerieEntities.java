@@ -14,6 +14,7 @@ import com.jarhax.eerieentities.entities.EntityCursedArmor;
 import com.jarhax.eerieentities.entities.EntityNetherKnight;
 import com.jarhax.eerieentities.entities.EntityPumpkinSlime;
 import com.jarhax.eerieentities.entities.EntityWisp;
+import com.jarhax.eerieentities.items.ItemNetherShield;
 
 import net.darkhax.bookshelf.lib.LoggingHelper;
 import net.darkhax.bookshelf.network.NetworkHandler;
@@ -21,6 +22,7 @@ import net.darkhax.bookshelf.registry.RegistryHelper;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -48,7 +50,9 @@ public class EerieEntities {
     public static final ResourceLocation LOOT_PUMPKIN_SLIME = REGISTRY.registerLootTable("entities/pumpkin_slime");
     public static final ResourceLocation LOOT_NETHER_KNIGHT = REGISTRY.registerLootTable("entities/nether_knight");
     public static final ResourceLocation LOOT_CURSED_ARMOR = REGISTRY.registerLootTable("entities/cursed_armor");
-
+    
+    public static Item netherShield;
+    
     public static FontRenderer fontRunelic;
     
     @EventHandler
@@ -61,6 +65,9 @@ public class EerieEntities {
         REGISTRY.registerMob(EntityNetherKnight.class, "nether_knight", 2, 16775294, 16167425);
         REGISTRY.registerMob(EntityCursedArmor.class, "cursed_armor", 3, 0xffffff, 0x000000);
         
+        netherShield = REGISTRY.registerItem(new ItemNetherShield(), "nether_shield");
+        
+        // Add all the pumpkin variants
         for (final BlockCarvedPumpkin.PumpkinType type : PumpkinType.values()) {
             
             if (type != PumpkinType.NORMAL) {
