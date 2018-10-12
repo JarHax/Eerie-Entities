@@ -1,16 +1,22 @@
 package com.jarhax.eerieentities.client.renderer.entity;
 
+import java.util.HashMap;
+
+import javax.annotation.Nullable;
+
+import org.lwjgl.opengl.GL11;
+
 import com.jarhax.eerieentities.EerieEntities;
 import com.jarhax.eerieentities.client.ShaderHandler;
 import com.jarhax.eerieentities.entities.EntityWisp;
-import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.entity.*;
+
+import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.GL11;
-
-import javax.annotation.Nullable;
-import java.util.HashMap;
 
 public class RenderWisp extends Render<EntityWisp> {
     
@@ -21,13 +27,13 @@ public class RenderWisp extends Render<EntityWisp> {
     
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(EntityWisp entity) {
+    protected ResourceLocation getEntityTexture (EntityWisp entity) {
         
         return new ResourceLocation(EerieEntities.MODID, "textures/entity/wisp.png");
     }
     
     @Override
-    public void doRender(EntityWisp entity, double x, double y, double z, float entityYaw, float partialTicks) {
+    public void doRender (EntityWisp entity, double x, double y, double z, float entityYaw, float partialTicks) {
         
         GlStateManager.pushMatrix();
         GlStateManager.translate((float) x, (float) y, (float) z);
@@ -51,9 +57,9 @@ public class RenderWisp extends Render<EntityWisp> {
         float red = 0;
         float green = 0;
         float blue = 0;
-        float alpha = 1;
+        final float alpha = 1;
         
-        switch(entity.getType()) {
+        switch (entity.getType()) {
             case 0:
                 green = 1;
                 blue = 1;

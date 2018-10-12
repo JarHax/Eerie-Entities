@@ -198,9 +198,9 @@ public class MobConfig {
         
         return this.spawnWeight;
     }
-
+    
     public int getBaseEXP () {
         
-        return baseEXP;
+        return this.baseEXP;
     }
 }
