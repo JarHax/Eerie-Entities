@@ -15,13 +15,13 @@ public class ItemNetherShield extends ItemShieldBase {
     }
     
     @Override
-    public EnumRarity getRarity(ItemStack stack) {
+    public EnumRarity getRarity (ItemStack stack) {
         
         return EnumRarity.RARE;
     }
     
     @Override
-    public void blockDamage(EntityLivingBase user, DamageSource damageSource, float amount) {
+    public void blockDamage (EntityLivingBase user, DamageSource damageSource, float amount) {
         
         final Entity source = damageSource.getImmediateSource();
         

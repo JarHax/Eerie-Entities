@@ -58,9 +58,9 @@ public class MobConfigNetherKnight extends MobConfig {
         
         return this.reinforcementIDs;
     }
-
+    
     public float getBurnChance () {
         
-        return burnChance;
+        return this.burnChance;
     }
 }

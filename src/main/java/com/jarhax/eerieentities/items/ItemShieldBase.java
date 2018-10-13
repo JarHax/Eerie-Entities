@@ -1,7 +1,6 @@
 package com.jarhax.eerieentities.items;
 
 import net.minecraft.block.BlockDispenser;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
@@ -55,18 +54,18 @@ public class ItemShieldBase extends Item {
         
         return true;
     }
-
-    public void blockDamage(EntityLivingBase user, DamageSource damageSource, float amount) {
+    
+    public void blockDamage (EntityLivingBase user, DamageSource damageSource, float amount) {
         
         // Hook for when damage is blocked.
     }
     
     @SubscribeEvent
-    public static void onAttack(LivingAttackEvent event) {
+    public static void onAttack (LivingAttackEvent event) {
         
         if (event.getEntityLiving().getActiveItemStack().getItem() instanceof ItemShieldBase && !event.getSource().isUnblockable()) {
             
-            ItemShieldBase shield = (ItemShieldBase) event.getEntityLiving().getActiveItemStack().getItem();
+            final ItemShieldBase shield = (ItemShieldBase) event.getEntityLiving().getActiveItemStack().getItem();
             shield.blockDamage(event.getEntityLiving(), event.getSource(), event.getAmount());
         }
     }
