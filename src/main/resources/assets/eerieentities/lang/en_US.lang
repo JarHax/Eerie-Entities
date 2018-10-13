@@ -6,3 +6,6 @@ entity.eerieentities.cursed_armor.name=Cursed Armor
 
 #Misc
 itemGroup.eerieentities=Eerie Entities
+
+#Items
+item.eerieentities.nether.shield.name=Nether Shield
