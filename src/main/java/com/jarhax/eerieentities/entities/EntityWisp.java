@@ -6,6 +6,7 @@ import com.jarhax.eerieentities.EerieEntities;
 import com.jarhax.eerieentities.config.Config;
 
 import net.darkhax.bookshelf.lib.Constants;
+import net.darkhax.bookshelf.lib.WeightedSelector;
 import net.darkhax.bookshelf.util.MathsUtils;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -63,7 +64,7 @@ public class EntityWisp extends EntityLiving {
     public IEntityLivingData onInitialSpawn (DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
         
         livingdata = super.onInitialSpawn(difficulty, livingdata);
-        this.setType(Constants.RANDOM.nextInt(4));
+        this.setType(WispType.selector.getRandomEntry().getEntry().ordinal());
         return livingdata;
     }
     

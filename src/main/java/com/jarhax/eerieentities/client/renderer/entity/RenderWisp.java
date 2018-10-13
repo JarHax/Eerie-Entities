@@ -9,6 +9,7 @@ import org.lwjgl.opengl.GL11;
 import com.jarhax.eerieentities.EerieEntities;
 import com.jarhax.eerieentities.client.ShaderHandler;
 import com.jarhax.eerieentities.entities.EntityWisp;
+import com.jarhax.eerieentities.entities.WispType;
 
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
@@ -54,28 +55,13 @@ public class RenderWisp extends Render<EntityWisp> {
         final Tessellator tessellator = Tessellator.getInstance();
         final BufferBuilder bufferbuilder = tessellator.getBuffer();
         
-        float red = 0;
-        float green = 0;
-        float blue = 0;
+        WispType type = WispType.values()[entity.getType()];
+        
+        float red = type.getRed();
+        float green = type.getGreen();
+        float blue = type.getBlue();
         final float alpha = 1;
         
-        switch (entity.getType()) {
-            case 0:
-                green = 1;
-                blue = 1;
-                break;
-            case 1:
-                red = 1;
-                blue = 1;
-                break;
-            case 2:
-                red = 1;
-                green = 1;
-                break;
-            case 3:
-                green = 1;
-                break;
-        }
         bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR_NORMAL);
         bufferbuilder.pos(-width, -width, 0).tex(0, 1).color(red, green, blue, alpha).normal(0.0F, 1.0F, 0.0F).endVertex();
         bufferbuilder.pos(width, -width, 0).tex(1, 1).color(red, green, blue, alpha).normal(0.0F, 1.0F, 0.0F).endVertex();
