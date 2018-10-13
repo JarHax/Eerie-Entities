@@ -9,6 +9,7 @@ import net.darkhax.bookshelf.lib.Constants;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
@@ -99,11 +100,10 @@ public class EntityWisp extends EntityLiving {
     @Override
     protected void collideWithEntity (Entity entityIn) {
         
-        // No entity collision
-    }
-    
-    @Override
-    protected void collideWithNearbyEntities () {
+        if (entityIn instanceof EntityLivingBase) {
+            
+            entityIn.setFire(30);
+        }
         
         // No entity collision
     }
