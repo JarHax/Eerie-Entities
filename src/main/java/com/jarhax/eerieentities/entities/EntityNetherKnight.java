@@ -11,6 +11,7 @@ import net.darkhax.bookshelf.data.AttributeOperation;
 import net.darkhax.bookshelf.lib.Constants;
 import net.darkhax.bookshelf.util.MathsUtils;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -198,6 +199,18 @@ public class EntityNetherKnight extends EntityMob {
     
     @Override
     public boolean attackEntityFrom (DamageSource source, float amount) {
+        
+        final Entity sourceEnt = source.getImmediateSource();
+        
+        if (!source.isUnblockable() && (source.isMagicDamage() || source.isProjectile() || source.isExplosion())) {
+            
+            amount /= 2f;
+        }
+        
+        if (sourceEnt != null && MathsUtils.tryPercentage(Config.netherKnight.getBurnChance())) {
+            
+            sourceEnt.setFire(1);
+        }
         
         if (super.attackEntityFrom(source, amount)) {
             
