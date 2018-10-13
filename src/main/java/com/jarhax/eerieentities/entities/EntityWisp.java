@@ -6,6 +6,7 @@ import com.jarhax.eerieentities.EerieEntities;
 import com.jarhax.eerieentities.config.Config;
 
 import net.darkhax.bookshelf.lib.Constants;
+import net.darkhax.bookshelf.util.MathsUtils;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -19,6 +20,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 
 public class EntityWisp extends EntityLiving {
@@ -106,6 +108,32 @@ public class EntityWisp extends EntityLiving {
         }
         
         // No entity collision
+    }
+    
+    @Override
+    public boolean getCanSpawnHere () {
+        
+        return super.getCanSpawnHere() && this.isValidLightLevel() && !this.world.isRaining();
+    }
+    
+    protected boolean isValidLightLevel () {
+        
+        final BlockPos blockpos = new BlockPos(this.posX, this.getEntityBoundingBox().minY, this.posZ);
+        
+        if (MathsUtils.tryPercentage(0.45)) {
+            
+            return false;
+        }
+        
+        if (this.world.getLightFor(EnumSkyBlock.SKY, blockpos) > this.rand.nextInt(32)) {
+            
+            return false;
+        }
+        
+        else {
+            
+            return this.world.getLightFromNeighbors(blockpos) <= this.rand.nextInt(8);
+        }
     }
     
     @Override
