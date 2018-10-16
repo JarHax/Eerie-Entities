@@ -53,6 +53,7 @@ public class EerieEntities {
     
     public static Item netherShield;
     
+    @SideOnly(Side.CLIENT)
     public static FontRenderer fontRunelic;
     
     @EventHandler
@@ -105,7 +106,8 @@ public class EerieEntities {
     }
     
     @EventHandler
-    public void onInit (FMLInitializationEvent event) {
+    @SideOnly(Side.CLIENT)
+    public void onClientInit (FMLInitializationEvent event) {
         
         fontRunelic = new FontRendererRunelic();
     }
