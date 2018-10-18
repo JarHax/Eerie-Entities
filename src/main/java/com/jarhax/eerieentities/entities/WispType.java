@@ -13,7 +13,7 @@ public enum WispType {
     
     static {
         
-        for (WispType type : WispType.values()) {
+        for (final WispType type : WispType.values()) {
             
             selector.addEntry(type, type.weight);
         }
@@ -31,19 +31,19 @@ public enum WispType {
         this.green = green;
         this.blue = blue;
     }
-
+    
     public int getRed () {
         
-        return red;
+        return this.red;
     }
-
+    
     public int getGreen () {
         
-        return green;
+        return this.green;
     }
-
+    
     public int getBlue () {
         
-        return blue;
+        return this.blue;
     }
 }

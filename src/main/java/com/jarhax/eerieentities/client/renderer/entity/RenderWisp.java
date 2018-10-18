@@ -55,11 +55,11 @@ public class RenderWisp extends Render<EntityWisp> {
         final Tessellator tessellator = Tessellator.getInstance();
         final BufferBuilder bufferbuilder = tessellator.getBuffer();
         
-        WispType type = WispType.values()[entity.getType()];
+        final WispType type = WispType.values()[entity.getType()];
         
-        float red = type.getRed();
-        float green = type.getGreen();
-        float blue = type.getBlue();
+        final float red = type.getRed();
+        final float green = type.getGreen();
+        final float blue = type.getBlue();
         final float alpha = 1;
         
         bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR_NORMAL);

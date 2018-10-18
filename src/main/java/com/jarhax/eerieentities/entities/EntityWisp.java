@@ -5,8 +5,6 @@ import javax.annotation.Nullable;
 import com.jarhax.eerieentities.EerieEntities;
 import com.jarhax.eerieentities.config.Config;
 
-import net.darkhax.bookshelf.lib.Constants;
-import net.darkhax.bookshelf.lib.WeightedSelector;
 import net.darkhax.bookshelf.util.MathsUtils;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
