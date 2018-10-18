@@ -1,13 +1,13 @@
 package com.jarhax.eerieentities.block;
 
+import com.jarhax.eerieentities.EerieEntities;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPumpkin;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.ResourceLocation;
 
 public class BlockCarvedPumpkin extends BlockPumpkin {
-    
-    // TODO add some additional properties here
-    // TODO add snow man code
     
     public static enum PumpkinType {
         
@@ -18,12 +18,14 @@ public class BlockCarvedPumpkin extends BlockPumpkin {
         CYCLOPS,
         SURPRISED;
         
+        private final ResourceLocation overlay;
         private Block normal;
         private Block lit;
         
         PumpkinType() {
             
             this(null, null);
+            this.overlay = new ResourceLocation(EerieEntities.MODID, "textures/misc/" + this.name().toLowerCase() + "blur.png");
         }
         
         PumpkinType(Block normal, Block lit) {
@@ -49,6 +51,11 @@ public class BlockCarvedPumpkin extends BlockPumpkin {
         public Block getLit () {
             
             return this.lit;
+        }
+        
+        public ResourceLocation getOverlayTexture () {
+            
+            return this.overlay;
         }
     }
 }

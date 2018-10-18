@@ -14,6 +14,7 @@ import com.jarhax.eerieentities.entities.EntityCursedArmor;
 import com.jarhax.eerieentities.entities.EntityNetherKnight;
 import com.jarhax.eerieentities.entities.EntityPumpkinSlime;
 import com.jarhax.eerieentities.entities.EntityWisp;
+import com.jarhax.eerieentities.items.ItemBlockArmor;
 import com.jarhax.eerieentities.items.ItemNetherShield;
 
 import net.darkhax.bookshelf.lib.LoggingHelper;
@@ -22,6 +23,7 @@ import net.darkhax.bookshelf.registry.RegistryHelper;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.init.Items;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -74,8 +76,8 @@ public class EerieEntities {
             if (type != PumpkinType.NORMAL) {
                 
                 final String name = type.name().toLowerCase();
-                final Block normal = new BlockCarvedPumpkin();
-                final ItemBlock itemNormal = new ItemBlock(normal);
+                final BlockCarvedPumpkin normal = new BlockCarvedPumpkin();
+                final ItemBlock itemNormal = new ItemBlockArmor(EntityEquipmentSlot.HEAD, normal, type);
                 REGISTRY.registerBlock(normal, itemNormal, "pumpkin_" + name);
                 normal.setTranslationKey("pumpkin");
                 
