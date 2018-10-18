@@ -24,7 +24,6 @@ public class BlockCarvedPumpkin extends BlockPumpkin {
         
         PumpkinType() {
             
-            this(null, null);
             this.overlay = new ResourceLocation(EerieEntities.MODID, "textures/misc/" + this.name().toLowerCase() + "blur.png");
         }
         
@@ -32,6 +31,7 @@ public class BlockCarvedPumpkin extends BlockPumpkin {
             
             this.normal = normal;
             this.lit = lit;
+            this.overlay = null;
         }
         
         public void setItems (Block normal, Block lit) {
