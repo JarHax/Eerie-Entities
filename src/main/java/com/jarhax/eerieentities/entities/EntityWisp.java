@@ -1,5 +1,8 @@
 package com.jarhax.eerieentities.entities;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import javax.annotation.Nullable;
 
 import com.jarhax.eerieentities.EerieEntities;
@@ -26,6 +29,8 @@ public class EntityWisp extends EntityLiving {
     
     private BlockPos spawnPosition;
     private static final DataParameter<Integer> TYPE = EntityDataManager.<Integer> createKey(EntityWisp.class, DataSerializers.VARINT);
+    private static final DataParameter<Byte> DAY = EntityDataManager.<Byte> createKey(EntityWisp.class, DataSerializers.BYTE);
+    private static final DataParameter<Byte> MONTH = EntityDataManager.<Byte> createKey(EntityWisp.class, DataSerializers.BYTE);
     
     public EntityWisp(World worldIn) {
         
@@ -51,11 +56,29 @@ public class EntityWisp extends EntityLiving {
         this.dataManager.set(TYPE, value);
     }
     
+    public byte getDay() {
+        
+        return this.dataManager.get(DAY);
+    }
+    
+    public byte getMonth() {
+        
+        return this.dataManager.get(MONTH);
+    }
+    
+    private void setSpawnDate(byte day, byte month) {
+        
+        this.dataManager.set(DAY, day);
+        this.dataManager.set(MONTH, month);
+    }
+    
     @Override
     protected void entityInit () {
         
         super.entityInit();
         this.dataManager.register(TYPE, 0);
+        this.dataManager.register(DAY, (byte) 0);
+        this.dataManager.register(MONTH, (byte) 0);
     }
     
     @Override
@@ -63,6 +86,9 @@ public class EntityWisp extends EntityLiving {
         
         livingdata = super.onInitialSpawn(difficulty, livingdata);
         this.setType(WispType.selector.getRandomEntry().getEntry().ordinal());
+
+        final Calendar now = Calendar.getInstance();
+        this.setSpawnDate((byte) now.get(Calendar.DAY_OF_MONTH), (byte) (now.get(Calendar.MONTH) + 1));
         return livingdata;
     }
     
@@ -71,6 +97,7 @@ public class EntityWisp extends EntityLiving {
         
         super.readEntityFromNBT(compound);
         this.setType(compound.getInteger("Type"));
+        this.setSpawnDate(compound.getByte("Day"), compound.getByte("Month"));
     }
     
     @Override
@@ -78,6 +105,8 @@ public class EntityWisp extends EntityLiving {
         
         super.writeEntityToNBT(compound);
         compound.setInteger("Type", this.getType());
+        compound.setByte("Day", this.getDay());
+        compound.setByte("Month", this.getMonth());
     }
     
     @Override
