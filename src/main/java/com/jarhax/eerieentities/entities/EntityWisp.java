@@ -225,4 +225,13 @@ public class EntityWisp extends EntityLiving {
         
         return this.height / 2.0F;
     }
+    
+    @Override
+    public void onLivingUpdate() {
+        
+        if (this.world.isDaytime() && !this.world.isRemote) {
+            
+            this.setDead();
+        }
+    }
 }
