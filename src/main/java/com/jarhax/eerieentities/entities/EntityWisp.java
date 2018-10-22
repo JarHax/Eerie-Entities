@@ -36,6 +36,7 @@ public class EntityWisp extends EntityLiving {
         
         super(worldIn);
         this.setSize(1, 1f);
+        this.isImmuneToFire = true;
     }
     
     @Override
