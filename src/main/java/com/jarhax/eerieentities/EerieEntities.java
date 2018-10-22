@@ -76,12 +76,12 @@ public class EerieEntities {
             if (type != PumpkinType.NORMAL) {
                 
                 final String name = type.name().toLowerCase();
-                final BlockCarvedPumpkin normal = new BlockCarvedPumpkin();
+                final BlockCarvedPumpkin normal = new BlockCarvedPumpkin(type);
                 final ItemBlock itemNormal = new ItemBlockArmor(EntityEquipmentSlot.HEAD, normal, type);
                 REGISTRY.registerBlock(normal, itemNormal, "pumpkin_" + name);
                 normal.setTranslationKey("pumpkin");
                 
-                final Block lit = new BlockCarvedPumpkin();
+                final Block lit = new BlockCarvedPumpkin(type);
                 final ItemBlock itemLit = new ItemBlock(lit);
                 REGISTRY.registerBlock(lit, itemLit, "pumpkin_lit_" + name);
                 lit.setTranslationKey("litpumpkin");

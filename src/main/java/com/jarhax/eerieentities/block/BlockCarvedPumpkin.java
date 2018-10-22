@@ -4,10 +4,21 @@ import com.jarhax.eerieentities.EerieEntities;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPumpkin;
+import net.minecraft.block.SoundType;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
 
 public class BlockCarvedPumpkin extends BlockPumpkin {
+    
+    private final PumpkinType type;
+    
+    public BlockCarvedPumpkin (PumpkinType type) {
+        
+        super();
+        this.setHardness(1.0F);
+        this.setSoundType(SoundType.WOOD);
+        this.type = type;
+    }
     
     public static enum PumpkinType {
         
