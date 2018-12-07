@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import javax.annotation.Nullable;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.lwjgl.opengl.GL11;
 
 import com.jarhax.eerieentities.EerieEntities;
@@ -26,7 +27,7 @@ import net.minecraft.util.ResourceLocation;
 public class RenderWisp extends Render<EntityWisp> {
     
     // month, day, index, color, rgb
-    public static float[][][][] colors = new float[12][31][16][3];
+    public static float[][][][] colors = new float[13][32][16][3];
     
     static {
         
@@ -87,9 +88,10 @@ public class RenderWisp extends Render<EntityWisp> {
             colorTable = colors[6][12];
         }
         
-        if (colorTable != null) {
+        float[] rgb = this.getColor(entity, colorTable, partialTicks);
+        
+        if (rgb[0] > 0 && rgb[1] > 0 && rgb[2] > 0) {
             
-            float[] rgb = this.getColor(entity, colorTable, partialTicks);
             red = rgb[0];
             green = rgb[1];
             blue = rgb[2];
@@ -128,6 +130,7 @@ public class RenderWisp extends Render<EntityWisp> {
         final float f = (wisp.ticksExisted % 25 + partialTicks) / 25.0F;
         final float[] color1 = colorTable[colorMeta1];
         final float[] color2 = colorTable[colorMeta2];
+        
         
         rgb[0] = color1[0] * (1.0F - f) + color2[0] * f;
         rgb[1] = color1[1] * (1.0F - f) + color2[1] * f;
