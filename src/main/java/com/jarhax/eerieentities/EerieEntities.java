@@ -20,6 +20,7 @@ import com.jarhax.eerieentities.items.ItemNetherShield;
 import net.darkhax.bookshelf.lib.LoggingHelper;
 import net.darkhax.bookshelf.network.NetworkHandler;
 import net.darkhax.bookshelf.registry.RegistryHelper;
+import net.darkhax.bookshelf.util.OreDictUtils;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.init.Items;
@@ -91,6 +92,7 @@ public class EerieEntities {
                 
                 REGISTRY.addShapelessRecipe("light_pumpkin_" + name, new ItemStack(itemLit), new ItemStack(itemNormal), "torch");
                 REGISTRY.addShapelessRecipe("pumpkin_seeds_" + name, new ItemStack(Items.PUMPKIN_SEEDS, 4), new ItemStack(itemNormal));
+                REGISTRY.addShapelessRecipe("pumpkin_pie_" + name, new ItemStack(Items.PUMPKIN_PIE), OreDictUtils.EGG, Items.SUGAR, new ItemStack(itemNormal));
             }
         }
     }
